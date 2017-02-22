@@ -1,0 +1,65 @@
+TrajectoryPlannerROS:
+  acc_lim_x: 0.1
+  # 1 m/s^2
+  acc_lim_theta: 1.5 #0.05 # \2.1
+  #1.5 #2
+
+
+  max_vel_x: 0.12
+  # m/s
+  min_vel_x: -0.1 # anakin 0.1
+  # m/s
+
+  max_vel_theta: 0.8 # \1.5
+  # rad/s
+  min_vel_theta: -0.8 # \-1.5 #0.7
+  # rad/s
+  min_in_place_vel_theta: 0.7
+  # rad/s
+  min_in_place_rotational_vel: 0.7
+  # rad/s
+
+
+  escape_vel: -0.15 # m/s
+
+  holonomic_robot: false
+
+###
+##Copy params
+  heading_lookahead: 0.3
+  #0.3
+  heading_scoring: false
+  #false
+  heading_scoring_timestep : 0.3
+  #heading_scoring_timestep: 0.3
+  meter_scoring: false
+
+  # interesting
+  pdist_scale: 0.6 #0.7 p 32.0
+  #0.4
+  gdist_scale: 0.8 # p 20.0
+  #0.8
+  occdist_scale: 0.1 # p 0.2
+  #0.05
+
+  ###
+  # Goal Tolerance Parameters
+  yaw_goal_tolerance: 0.5 # norm 0.3  # 0.15 rad
+  xy_goal_tolerance: 0.3  #0.1 m
+  # latch_xy_goal_tolerance: false
+
+  #The amount of time to forward-simulate trajectories in seconds
+  sim_time: 2.5 # modify by anakin 3.0(old)
+  #1
+  #The step size, in meters, to take between points on a given trajectory
+  sim_granularity: 0.025
+
+  #The step size, in radians, to take between angular samples on a given trajectory
+  angular_sim_granularity: 0.025
+  #0.025
+
+  #The number of samples to use when exploring the x velocity space
+  vx_samples: 20 # modify by anakin 5(old)
+
+  #The number of samples to use when exploring the theta velocity space
+  vtheta_samples: 40 # modify by anakin 20(old)

@@ -1,0 +1,22 @@
+#Common File For Costmap2D
+
+obstacle_range : 2.0
+raytrace_range : 2.5 
+
+
+footprint: [[0.25,0.25], [0.25,-0.25], [-0.25,-0.25], [-0.25,0.25]]
+
+inflation_radius: 0.60
+#0.55
+
+#observation_sources: scan point_cloud_sensor
+#scan , 
+
+#scan: {sensor_frame: /laser, data_type: LaserScan, topic: /scan_filtered, marking: true, clearing: true, expected_update_rate: 10}
+#point_cloud_sensor: {sensor_frame: /camera_link, data_type: PointCloud2, topic: /camera/depth_registered/points , marking: true, clearing: true}
+
+observation_sources: laser_scan_sensor point_cloud_sensor
+
+laser_scan_sensor: {sensor_frame: /laser, data_type: LaserScan, topic: /scan_filtered, marking: true, clearing: true}
+
+point_cloud_sensor: {sensor_frame: /camera_link, data_type: PointCloud2, topic: /camera/depth_registered/points, marking: true, clearing: true}

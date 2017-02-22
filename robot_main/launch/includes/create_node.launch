@@ -1,0 +1,10 @@
+<launch>
+    <!-- Initiate the iCreate Controller ! -->
+    <node pkg="create_node" type="turtlebot_node.py" name="iCreate_controller" output="screen">
+      	 <param name="port" type="string" value="/dev/ttyUSB0"/>
+         <param name="odom_angular_scale_correction" value="1.08"/>
+         <param name="odom_linear_scale_correction" value="1.0"/>
+         <param name="has_gyro" value="false"/>
+	 <param name="publish_tf" value="true"/>
+    </node>
+</launch>

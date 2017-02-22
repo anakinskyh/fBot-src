@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+
+    <node pkg="turn_signal" type="running_avg_led.py" name="running_avg_led" output="screen">
+        <param name="sub_topic" value="/turn_cmd_vel" />
+        <param name="pub_topic" value="/tsState"/>
+        <param name="update_rate" value="5.0" />
+        <param name="light_rate" value="8.0"/>
+
+        <param name="baudrate" value="115200"/>
+        <param name="dev" value="/dev/arduino"/>
+    </node>
+
+</launch>

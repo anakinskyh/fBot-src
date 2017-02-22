@@ -1,0 +1,15 @@
+<launch>
+  <arg name="kinect_type" default="Kinect"/>
+  <arg name="kinect_name" default="camera"/>
+  <arg name="base_frame" default="/base_link"/>
+  <arg name="calibration_frame" default="/calib_link"/>
+  <arg name="output_file" default="$(find kinects_human_tracking)/launch/$(arg kinect_name)_extrinsics.launch"/>
+
+  <node name="kinect_points_calibration" pkg="depth_cam_extrinsics_calib" type="simple_singlepoints_calib.py" output="screen">
+    <param name="camera_name" value="$(arg kinect_name)" />
+    <param name="base_frame" value="$(arg base_frame)" />
+    <param name="calibration_frame" value="$(arg calibration_frame)" />
+    <param name="output_file" value="$(arg output_file)" />
+    <param name="kinect_type" value="$(arg kinect_type)" /> 
+  </node>
+</launch>

@@ -1,0 +1,48 @@
+<launch>
+    <arg name='kinect_name' value='kinect'/>
+
+    <!-- launch kinect -->
+    <!-- <include file="$(find kinects_human_tracking)/launch/kinect1.launch">
+        <arg name='camera' value='$(arg kinect_name)'/>
+    </include> -->
+    <include file='$(find openni_launch)/launch/openni.launch'>
+      <arg name='camera' value='$(arg kinect_name)'/>
+    </include>
+
+    <!-- launch tf -->
+    <include file="$(find kinects_human_tracking)/launch/my_kinect_extrinsics.launch">
+        <arg name='camera_link' value='$(arg kinect_name)_link'/>
+    </include>
+
+    <!--Realtime URDF filtering-->
+     <!--<include file="$(find realtime_urdf_filter)/launch/realtime_urdf_filter.launch">
+        <arg name='kinect_name' value='$(arg kinect_name)'/>
+    </include> -->
+
+    <!-- background storage -->
+    <include file="$(find kinects_human_tracking)/launch/kinect_img_bg_store.launch">
+        <arg name='kinect_name' value='$(arg kinect_name)'/>
+        <arg name='img_topic' value='$(arg kinect_name)/depth_registered/sw_registered/image_rect_raw'/>
+    </include>
+
+    <!-- background subtraction -->
+    <include file="$(find kinects_human_tracking)/launch/kinect_img_bg_sub.launch">
+        <arg name='kinect_name' value='$(arg kinect_name)'/>
+    </include>
+
+    <!-- launch point clound -->
+    <include file="$(find kinects_human_tracking)/launch/my_create_pc.launch">
+        <arg name='kinect_name' value='$(arg kinect_name)'/>
+    </include>
+
+    <!-- merge point clound -->
+    <include file="$(find kinects_human_tracking)/launch/kinect_merge.launch">
+        <arg name='topic_name1' value='$(arg kinect_name)/depth_registered/downsampled_filtered_points'/>
+        <arg name='out_frame' value='kinect_link'/>
+    </include>
+
+    <!-- launch human tracking -->
+    <!--<include file="$(find kinects_human_tracking)/launch/kinect_human_tracking.launch">
+    </include> -->
+
+</launch>

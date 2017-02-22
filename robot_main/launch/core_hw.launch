@@ -1,0 +1,25 @@
+<launch>
+
+    <!--which one create_node or create_autonomy-->
+
+    <!--create_node-->
+    <include file="$(find robot_main)/launch/includes/create_node.launch"/>
+
+    <!--create_autonomy-->
+    <!--<include file="$(find robot_main)/launch/includes/create_autonomy.launch"/>-->
+
+    <!--kobuki_node-->
+    <!--<include file='$(find robot_main)/launch/includes/kobuki_node.launch'/>-->
+
+    <!--hokuyo-->
+    <include file="$(find robot_main)/launch/includes/hokuyo.launch"/>
+
+    <!--joystick-->
+    <include file="$(find robot_main)/launch/includes/joystick.launch"/>
+    <!--<include file="$(find robot_main)/launch/includes/teleop_twist_joy.launch"/>-->
+
+    <!--tf_config-->
+    <include file="$(find robot_main)/launch/includes/tf_config.launch"/>
+
+    <!--<include file="$(find robot_main)/launch/includes/tf_config.launch"/>-->
+</launch>

@@ -1,0 +1,7 @@
+<launch>
+  <arg name='kinect_name' default='kinect'/>
+  <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan" output="screen">
+      <remap from="cloud_in" to="$(arg kinect_name)/depth_registered/downsampled_filtered_points"/>
+      <arg name='angle_increment' value=''/>
+  </node>
+</launch>

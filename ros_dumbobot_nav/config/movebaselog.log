@@ -1,0 +1,155 @@
+c3mx@c3mx-ubun:~$ roslaunch ros_dumbobot_nav move_base.launch 
+... logging to /home/c3mx/.ros/log/30c79ac8-c7d2-11e5-9f3c-38b1dbf10661/roslaunch-c3mx-ubun-5578.log
+Checking log directory for disk usage. This may take awhile.
+Press Ctrl-C to interrupt
+WARNING: disk usage in log directory [/home/c3mx/.ros/log] is over 1GB.
+It's recommended that you use the 'rosclean' command.
+
+started roslaunch server http://c3mx-ubun:46506/
+
+SUMMARY
+========
+
+PARAMETERS
+ * /amcl/base_frame_id: base_link
+ * /amcl/global_frame_id: map
+ * /amcl/gui_publish_rate: 10.0
+ * /amcl/kld_err: 0.05
+ * /amcl/kld_z: 0.99
+ * /amcl/laser_lambda_short: 0.1
+ * /amcl/laser_likelihood_max_dist: 2.0
+ * /amcl/laser_max_beams: 90
+ * /amcl/laser_model_type: likelihood_field
+ * /amcl/laser_sigma_hit: 0.2
+ * /amcl/laser_z_hit: 0.5
+ * /amcl/laser_z_max: 0.05
+ * /amcl/laser_z_rand: 0.5
+ * /amcl/laser_z_short: 0.05
+ * /amcl/max_particles: 5000
+ * /amcl/min_particles: 500
+ * /amcl/odom_alpha1: 0.5
+ * /amcl/odom_alpha2: 0.2
+ * /amcl/odom_alpha3: 0.8
+ * /amcl/odom_alpha4: 0.2
+ * /amcl/odom_alpha5: 0.2
+ * /amcl/odom_frame_id: odom
+ * /amcl/odom_model_type: diff
+ * /amcl/recovery_alpha_fast: 0.0
+ * /amcl/recovery_alpha_slow: 0.0
+ * /amcl/resample_interval: 1
+ * /amcl/transform_tolerance: 0.2
+ * /amcl/update_min_a: 0.6
+ * /amcl/update_min_d: 0.2
+ * /move_base_node/TrajectoryPlannerROS/acc_lim_theta: 0.1
+ * /move_base_node/TrajectoryPlannerROS/acc_lim_x: 0.1
+ * /move_base_node/TrajectoryPlannerROS/controller_frequency: 10
+ * /move_base_node/TrajectoryPlannerROS/holonomic_robot: True
+ * /move_base_node/TrajectoryPlannerROS/max_vel_theta: 1.4
+ * /move_base_node/TrajectoryPlannerROS/max_vel_x: 0.5
+ * /move_base_node/TrajectoryPlannerROS/min_in_place_vel_theta: 1.0
+ * /move_base_node/TrajectoryPlannerROS/min_vel_theta: 0.6
+ * /move_base_node/TrajectoryPlannerROS/min_vel_x: 0.1
+ * /move_base_node/TrajectoryPlannerROS/sim_time: 2
+ * /move_base_node/TrajectoryPlannerROS/yaw_goal_tolerance: 0.7
+ * /move_base_node/global_costmap/footprint: [[0.3, 0.3], [0.3...
+ * /move_base_node/global_costmap/global_frame: map
+ * /move_base_node/global_costmap/inflation_radius: 0.55
+ * /move_base_node/global_costmap/observation_sources: scan
+ * /move_base_node/global_costmap/obstacle_range: 2.0
+ * /move_base_node/global_costmap/publish_voxel_map: True
+ * /move_base_node/global_costmap/raytrace_range: 3.0
+ * /move_base_node/global_costmap/robot_base_frame: base_link
+ * /move_base_node/global_costmap/scan/clearing: True
+ * /move_base_node/global_costmap/scan/data_type: LaserScan
+ * /move_base_node/global_costmap/scan/expected_update_rate: 10
+ * /move_base_node/global_costmap/scan/marking: True
+ * /move_base_node/global_costmap/scan/sensor_frame: /laser
+ * /move_base_node/global_costmap/scan/topic: /scan
+ * /move_base_node/global_costmap/static_map: True
+ * /move_base_node/global_costmap/transform_tolerance: 0.2
+ * /move_base_node/global_costmap/update_frequency: 5.0
+ * /move_base_node/local_costmap/footprint: [[0.3, 0.3], [0.3...
+ * /move_base_node/local_costmap/global_frame: odom
+ * /move_base_node/local_costmap/height: 3.0
+ * /move_base_node/local_costmap/inflation_radius: 0.55
+ * /move_base_node/local_costmap/observation_sources: scan
+ * /move_base_node/local_costmap/obstacle_range: 2.0
+ * /move_base_node/local_costmap/publish_frequency: 2.0
+ * /move_base_node/local_costmap/raytrace_range: 3.0
+ * /move_base_node/local_costmap/resolution: 0.05
+ * /move_base_node/local_costmap/robot_base_frame: base_link
+ * /move_base_node/local_costmap/rolling_window: True
+ * /move_base_node/local_costmap/scan/clearing: True
+ * /move_base_node/local_costmap/scan/data_type: LaserScan
+ * /move_base_node/local_costmap/scan/expected_update_rate: 10
+ * /move_base_node/local_costmap/scan/marking: True
+ * /move_base_node/local_costmap/scan/sensor_frame: /laser
+ * /move_base_node/local_costmap/scan/topic: /scan
+ * /move_base_node/local_costmap/static_map: False
+ * /move_base_node/local_costmap/update_frequency: 5.0
+ * /move_base_node/local_costmap/width: 3.0
+ * /rosdistro: jade
+ * /rosversion: 1.11.16
+
+NODES
+  /
+    amcl (amcl/amcl)
+    map_server (map_server/map_server)
+    move_base_node (move_base/move_base)
+
+ROS_MASTER_URI=http://localhost:11311
+
+core service [/rosout] found
+process[map_server-1]: started with pid [5596]
+process[amcl-2]: started with pid [5597]
+process[move_base_node-3]: started with pid [5604]
+[ INFO] [1454215547.160941797]: Requesting the map...
+[ INFO] [1454215547.202216280]: Received a 4000 X 4000 map @ 0.050 m/pix
+
+[ INFO] [1454215547.395906124]: Initializing likelihood field model; this can take some time on large maps...
+[ERROR] [1454215547.409990448]: Client [/rviz_1454214522595446467] wants topic /amcl_pose to have datatype/md5sum [geometry_msgs/PoseStamped/d3812c3cbc69362b77dc0b19b345f8f5], but our version has [geometry_msgs/PoseWithCovarianceStamped/953b798c0f514ff060a53a3498ce6246]. Dropping connection.
+[ INFO] [1454215547.629808770]: Done initializing likelihood field model.
+[ INFO] [1454215547.831471077]: Using plugin "static_layer"
+[ INFO] [1454215547.885273239]: Requesting the map...
+[ INFO] [1454215548.094033633]: Resizing costmap to 4000 X 4000 at 0.050000 m/pix
+[ INFO] [1454215548.189473808]: Received a 4000 X 4000 map at 0.050000 m/pix
+[ INFO] [1454215548.193765522]: Using plugin "obstacle_layer"
+[ INFO] [1454215548.198724971]:     Subscribed to Topics: scan
+[ INFO] [1454215548.225119651]: Using plugin "inflation_layer"
+[ INFO] [1454215548.356323517]: Using plugin "obstacle_layer"
+[ INFO] [1454215548.406403614]:     Subscribed to Topics: scan
+[ INFO] [1454215548.431489319]: Using plugin "inflation_layer"
+[ INFO] [1454215548.526102317]: Created local_planner base_local_planner/TrajectoryPlannerROS
+[ INFO] [1454215548.540320514]: Sim period is set to 0.10
+[ WARN] [1454215548.547141932]: Trajectory Rollout planner initialized with param meter_scoring not set. Set it to true to make your settins robust against changes of costmap resolution.
+[ INFO] [1454215548.723318696]: Recovery behavior will clear layer obstacles
+[ INFO] [1454215548.779491010]: Recovery behavior will clear layer obstacles
+[ INFO] [1454215548.843704882]: odom received!
+[ WARN] [1454215561.688908340]: Failed to transform initial pose in time (Lookup would require extrapolation into the future.  Requested time 1454215561.686997717 but the latest data is at time 1454215561.619540220, when looking up transform from frame [base_link] to frame [map])
+[ INFO] [1454215561.688973587]: Setting pose (1454215561.688958): -4.448 7.740 2.242
+[ WARN] [1454215628.249800223]: Failed to transform initial pose in time (Lookup would require extrapolation into the future.  Requested time 1454215628.247181670 but the latest data is at time 1454215628.219235593, when looking up transform from frame [base_link] to frame [map])
+[ INFO] [1454215628.249859865]: Setting pose (1454215628.249842): -1.108 2.583 -2.376
+[ WARN] [1454215824.182930453]: Clearing costmap to unstuck robot (3.000000m).
+[ WARN] [1454215824.432929741]: Rotate recovery behavior started.
+[ WARN] [1454215861.883421589]: Clearing costmap to unstuck robot (3.000000m).
+[ WARN] [1454215862.133431964]: Rotate recovery behavior started.
+[ WARN] [1454216430.263239687]: Clearing costmap to unstuck robot (3.000000m).
+[ WARN] [1454216430.512953832]: Rotate recovery behavior started.
+[ERROR] [1454216436.713375402]: Rotate recovery can't rotate in place because there is a potential collision. Cost: -1.00
+[ WARN] [1454216557.860599353]: Costmap2DROS transform timeout. Current time: 1454216557.8606, global_pose stamp: 1454216557.6192, tolerance: 0.2000
+[ WARN] [1454216557.917791571]: Could not get robot pose, cancelling reconfiguration
+[ WARN] [1454216558.864884489]: Costmap2DROS transform timeout. Current time: 1454216558.8648, global_pose stamp: 1454216557.6192, tolerance: 0.3000
+[ WARN] [1454216558.943740952]: Could not get robot pose, cancelling reconfiguration
+[ WARN] [1454216559.917946499]: Costmap2DROS transform timeout. Current time: 1454216559.9179, global_pose stamp: 1454216557.6192, tolerance: 0.2000
+[ WARN] [1454216560.017315291]: Could not get robot pose, cancelling reconfiguration
+[ WARN] [1454216560.943746693]: Costmap2DROS transform timeout. Current time: 1454216560.9437, global_pose stamp: 1454216557.6192, tolerance: 0.3000
+[ WARN] [1454216561.017802142]: Could not get robot pose, cancelling reconfiguration
+[ WARN] [1454216561.943769413]: Costmap2DROS transform timeout. Current time: 1454216561.9437, global_pose stamp: 1454216557.6192, tolerance: 0.3000
+[ WARN] [1454216562.044329016]: Could not get robot pose, cancelling reconfiguration
+^C[move_base_node-3] killing on exit
+[amcl-2] killing on exit
+[map_server-1] killing on exit
+shutting down processing monitor...
+... shutting down processing monitor complete
+done
+c3mx@c3mx-ubun:~$ 
