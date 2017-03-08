@@ -1,0 +1,10 @@
+<launch>
+
+    <!--which one create_node or create_autonomy-->
+
+    <!--cmd_filter-->
+    <include file="$(find robot_main)/launch/includes/cmd_filter.launch"/>
+
+    <!--running_avg_led-->
+    <include file="$(find robot_main)/launch/includes/running_avg_led.launch"/>
+</launch>

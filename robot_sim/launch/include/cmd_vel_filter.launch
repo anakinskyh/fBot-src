@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<launch>
+
+    <arg name="deley_time" default="0.0"/>
+
+    <node pkg="turn_signal" type="cmd_vel_filter.py" name="turn_signal">
+        <param name="delay" value="$(arg deley_time)" />
+        <!--<param name="queue_size" value="10.0" />-->
+        <param name="sub_topic" value="raw_cmd_vel" />
+        <param name="pub_topic" value="velocity" />
+
+        <!--make it smoother-->
+        <param name="smoother" value="True"/>
+        <param name="max_l_acc" value="0.005"/>
+        <param name="max_a_acc" value="0.005"/>
+    </node>
+
+</launch>

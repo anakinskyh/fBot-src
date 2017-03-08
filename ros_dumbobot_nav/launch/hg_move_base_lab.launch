@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<!-- Launch File For Move_base Automatic Navigation System -->
+<launch>
+
+  <arg name="map_path" default="$(find ros_dumbobot_nav)/map/lab20_102.yaml"/>
+
+  <!--map-->
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_path)"/>
+
+  <!-- Run AMCL -->
+  <!--<include file="$(find ros_dumbobot_nav)/launch/hg_amcl_dumbo.launch" />-->
+  <include file="$(find ros_dumbobot_nav)/launch/new_amcl.launch"/>
+
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+
+    <rosparam file="$(find ros_dumbobot_nav)/hg_config/hg_move_base_param.yaml" command="load" />
+    <rosparam file="$(find ros_dumbobot_nav)/hg_config/hg_costmap_common_param.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find ros_dumbobot_nav)/hg_config/hg_costmap_common_param.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find ros_dumbobot_nav)/hg_config/hg_local_costmap_param.yaml" command="load" />
+    <rosparam file="$(find ros_dumbobot_nav)/hg_config/hg_global_costmap_param.yaml" command="load" />
+    <rosparam file="$(find ros_dumbobot_nav)/hg_config/hg_base_local_planner_param.yaml" command="load" />
+
+    <!--plugin-->
+    <rosparam file="$(find ros_dumbobot_nav)/hg_config/hg_global_planner_param.yaml" command="load"/>
+
+    <!--<remap from="cmd_vel" to="navigation_velocity_smoother/raw_cmd_vel"/>-->
+    <!--<remap from="cmd_vel" to="/ros_dumbobot/raw_cmd_vel" />-->
+    <remap from="cmd_vel" to="raw_cmd_vel" />
+  </node>
+
+  <!--rviz-->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find ros_dumbobot_nav)/rviz/my_ros_rviz.rviz"/>
+
+</launch>

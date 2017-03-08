@@ -1,0 +1,33 @@
+
+        x = msg.linear.x
+        z = msg.angular.z
+
+        x/=0.2
+        x-=0.5
+        
+        m = 20-10*z
+        r = 10*x
+
+        allred = True
+
+        if(z>0.6):
+            i=0
+            j=20
+            s=1
+            allred = False
+        if(z<-0.6):
+            i=20
+            j=39
+            s=1
+            allred = False
+
+        if(x>0):
+            i = m-r
+            j = m+r
+            s= 1
+            allred = False
+
+        if(allred):
+            i=0
+            j=40
+            s=0

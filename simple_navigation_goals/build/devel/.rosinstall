@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/anakin/Workspace/Robot/robot_ws/src/simple_navigation_goals/build/devel/setup.sh

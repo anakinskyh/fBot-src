@@ -1,0 +1,32 @@
+<launch>
+    <arg name='camera' value='kinect'/>
+
+    <include file='$(find openni_launch)/launch/openni.launch'>
+      <arg name="camera" default="$(arg camera)" />
+    </include>
+
+    <!--<include file="$(find kinects_human_tracking)/launch/my_kinect_extrinsics.launch">
+         <arg name='camera_link' value='$(arg kinect_name)'/> 
+    </include>-->
+
+    <!--<include file="$(find face_detector)/launch/face_detector.rgbd.launch">
+         <arg name="depth_topic" default="sw_registered/image_rect_raw" /> 
+        <arg name="camera" value="$(arg camera)/" />
+        <arg name="rgb_ns" value="rgb" />
+        <arg name="depth_ns" value="depth_registered" />
+        <arg name="image_topic" value="image_rect_color" />
+        <arg name="depth_topic" value="hw_registered/image_rect" />
+        <arg name="fixed_frame" value="$(arg camera)_rgb_optical_frame" />
+    </include>-->
+
+    <!-- depth to laserscan -->
+    <include file="$(find robot_main)/launch/includes/depth_to_laserscan.launch">
+        <arg name="kinect_name" default="$(arg camera)" />
+    </include>
+
+    <!-- leg detector -->
+    <!-- <node pkg='leg_detector' type='leg_detector' name='leg_detector'
+      output='screen'>
+    </node> -->
+
+</launch>

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<package>
+  <name>depth_cam_tools</name>
+  <version>0.0.0</version>
+  <description>The depth_cam_tools package contains the definition of several depth camera sensors such Kinect and Kinect_v2</description>
+
+  <maintainer email="hoarau.robotics@gmail.com">Antoine Hoarau</maintainer>
+  <maintainer email="jimmy.dasilva@isir.upmc.fr">Jimmy Da Silva</maintainer>
+
+  <license>CeCILL</license>
+
+  <!-- Url tags are optional, but mutiple are allowed, one per tag -->
+  <!-- Optional attribute type can be: website, bugtracker, or repository -->
+  <!-- Example: -->
+  <!-- <url type="website">http://wiki.ros.org/depth_cam_tools</url> -->
+
+  <author email="hoarau.robotics@gmail.com">Antoine Hoarau</author>
+  <author email="jimmy.dasilva@isir.upmc.fr">Jimmy Da Silva</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>cv_bridge</build_depend>
+  <build_depend>openni_camera</build_depend>
+  <build_depend>openni_launch</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>rospy</build_depend>
+  <run_depend>cv_bridge</run_depend>
+  <run_depend>openni_camera</run_depend>
+  <run_depend>openni_launch</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>rospy</run_depend>
+
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <!-- Other tools can request additional information be placed here -->
+
+  </export>
+</package>

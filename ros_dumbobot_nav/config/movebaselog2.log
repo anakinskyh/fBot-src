@@ -1,0 +1,11 @@
+[ WARN] [1454215548.547141932]: Trajectory Rollout planner initialized with param meter_scoring not set. Set it to true to make your settins robust against changes of costmap resolution.
+
+
+
+[ WARN] [1454215561.688908340]: Failed to transform initial pose in time (Lookup would require extrapolation into the future.  Requested time 1454215561.686997717 but the latest data is at time 1454215561.619540220, when looking up transform from frame [base_link] to frame [map])
+
+
+[ WARN] [1454215824.182930453]: Clearing costmap to unstuck robot (3.000000m).
+
+
+[ERROR] [1454216436.713375402]: Rotate recovery can't rotate in place because there is a potential collision. Cost: -1.00

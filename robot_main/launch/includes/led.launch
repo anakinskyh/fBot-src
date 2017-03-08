@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<launch>
+
+    <node pkg="turn_signal" type="led.py" name="led" output="screen">
+        <param name="sub_topic" value="/raw_cmd_vel" />
+        <param name="use_light_ratio" value="False" />
+        <param name="light_ratio" value="0.0" />
+        <param name="rate" value="10.0" />
+        <param name="dev" value="/dev/arduino" />
+    </node>
+
+</launch>

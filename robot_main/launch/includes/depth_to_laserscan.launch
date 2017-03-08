@@ -1,0 +1,59 @@
+<launch>
+
+    <arg name="kinect_name" default="camera"/>
+
+    <!-- Nodelet manager for this pipeline -->
+     <node pkg="nodelet" type="nodelet" args="manager" name="$(arg kinect_name)_record_player_manager" output="screen"/> 
+
+    <!-- Nodelet to convert the filtered depth into a pointcloud    -->
+    <!-- <node pkg="nodelet" type="nodelet" name="$(arg kinect_name)_depth_filtered_cloudify" args="load depth_image_proc/point_cloud_xyzrgb $(arg kinect_name)_record_player_manager" output="screen">
+
+        <remap from="rgb/camera_info" to="/$(arg kinect_name)/rgb/camera_info"/>
+        <remap from="rgb/image_rect_color" to="/$(arg kinect_name)/rgb/image_rect_color"/>
+        <remap from="depth_registered/image_rect" to="/$(arg kinect_name)/depth_registered/hw_registered/image_rect"/>
+
+        <remap from="depth_registered/points" to="/$(arg kinect_name)/depth_registered/filtered_points"/>
+    </node> -->
+
+    <!-- Nodelet to clean NaNs and downsample the pointcloud  	-->
+    <!-- <node pkg="nodelet" type="nodelet" name="$(arg kinect_name)_voxel_grid" args="load pcl/VoxelGrid $(arg kinect_name)_record_player_manager" output="screen">
+        <remap from="~input" to="$(arg kinect_name)/depth_registered/filtered_points"/>
+        <remap from="~output" to="$(arg kinect_name)/depth_registered/downsampled_filtered_points"/>
+        <rosparam param="filter_field_name">z</rosparam>
+        <rosparam param="filter_limit_min">0.5</rosparam>
+        <rosparam param="filter_limit_max">4.0</rosparam>
+        <rosparam param="filter_limit_negative">False</rosparam>
+        <rosparam param="leaf_size">0.03</rosparam>
+    </node> -->
+
+    <!-- pointcloud_to_laserscan pointcloud_to_laserscan_node -->
+    <!-- <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan" output="screen">
+        <remap from="cloud_in" to="$(arg kinect_name)/depth_registered/downsampled_filtered_points"/>
+    </node> -->
+
+    <!-- depth_image to laser -->
+    
+
+    <node pkg='topic_tools' type='relay' name='depth_to_depthhw'
+      args='$(arg kinect_name)/depth_registered/hw_registered/camera_info $(arg kinect_name)/depth_registered/hw_registered/camera_info'/>
+
+    <!-- Nodelet manager for this pipeline -->
+    <node pkg="nodelet" type="nodelet" args="manager" name="$(arg kinect_name)_laser_manager" output="screen"/>
+
+    <!-- Nodelet to convert the filtered depth into a pointcloud    -->
+    <node pkg="nodelet" type="nodelet" name="$(arg kinect_name)_depth_to_laser"
+      args="load depthimage_to_laserscan/DepthImageToLaserScanNodelet $(arg kinect_name)_laser_manager" output="screen">
+
+        <remap from="camera_info" to="$(arg kinect_name)/depth_registered/sw_registered/camera_info"/>
+        <remap from="image" to="$(arg kinect_name)/depth_registered/sw_registered/image_rect"/>
+        <remap from='scan' to='scan'/>
+    </node>
+
+    <!-- <node pkg='depthimage_to_laserscan' name='depthimage_to_laserscan'
+      type='depthimage_to_laserscan' output='screen'>
+
+      <remap from="camera_info" to="$(arg kinect_name)/depth_registered/camera_info"/>
+      <remap from="image" to="$(arg kinect_name)/depth_registered/hw_registered/image_rect"/>
+      <remap from='scan' to='scan'/>
+    </node> -->
+</launch>
