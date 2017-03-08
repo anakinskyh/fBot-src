@@ -1,8 +1,0 @@
-<launch>
-    <arg name='camera_link' default='kinect_link'/>
-    <node pkg="tf" type="static_transform_publisher" name="calib_kinect2" args="0.873008142566 0.99188146155 0.51591077643 0.087149997539 0.0810802148424
-           -0.724730938762 0.678672191188 /base_link /$(arg camera_link) 100"/>
-
-    <!--<node pkg="tf" type="static_transform_publisher" name="camera_link_to_laser"
-      args="0 0 0 0 0 0 1 /$(arg camera_link) /camera_depth_frame 100"/>-->
-</launch>
