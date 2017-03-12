@@ -1,7 +1,5 @@
 ## Compilation
-------
-May need to remove some package before first compile, then restore those package and compile again.
-======
+May need to remove some package before first compile, then restore those package and compile again.1
 ## Usage
 ### Preparation **
 apply udev rule by
@@ -14,7 +12,7 @@ All command
 `roslaunch robot_main core_hw.launch`
 
 `roslaunch robot_main cmd_filter.launch`
----
+
 Firstly, You need to run
 `roslaunch robot_main core_hw.launch`
 By the command You stated *create, hokuyo, joystick, tf_config*.
@@ -27,7 +25,13 @@ Secondly, to make robot can walk you need to run
 `roslaunch robot_main cmd_filter.launch`, This command will convert raw_cmd_vel to cmd_vel
 
 ### Run LED
-Run `roslaunch robot_main `
+Run `roslaunch robot_main running_avg_led.launch`
 
 ### Run navigation stack
-======
+You need to run `roslaunch ros_dumbobot_nav hg_move_base_lab.launch`.
+If you need to monitor on other machine you can run
+`rosrun rviz rviz $(find ros_dumbobot_nav)/rviz/my_ros_rviz.rviz`
+
+And If you need to run human detection module you need to connect to kinect and run `roslaunch robot_main openni_tracker.launch`
+
+That will run *openni_tracker and people_stat*
