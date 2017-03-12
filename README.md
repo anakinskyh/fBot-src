@@ -1,10 +1,10 @@
 ## Compilation
-May need to remove some package before first compile, then restore those package and compile again.1
+May need to remove some package before first compile, then restore those package and compile again.
 ## Usage
 ### Preparation **
 apply udev rule by
 
-`sudo cp .../fBot-src/util/udev.rule.d/* ...`
+`sudo cp <src>/fBot-src/util/udev.rule.d/* /etc/udev/rules.d/`
 
 ### Run Hardware
 All command
@@ -30,7 +30,7 @@ Run `roslaunch robot_main running_avg_led.launch`
 ### Run navigation stack
 You need to run `roslaunch ros_dumbobot_nav hg_move_base_lab.launch`.
 If you need to monitor on other machine you can run
-`rosrun rviz rviz $(find ros_dumbobot_nav)/rviz/my_ros_rviz.rviz`
+`rosrun rviz rviz $(rospack find ros_dumbobot_nav)/rviz/my_ros_rviz.rviz`
 
 And If you need to run human detection module you need to connect to kinect and run `roslaunch robot_main openni_tracker.launch`
 
