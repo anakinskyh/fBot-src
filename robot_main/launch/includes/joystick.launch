@@ -11,7 +11,7 @@
     <param name="axis_angular" value="3" type="int"/>
     <param name="button_deadman_switch" value="2" type="int"/>
 
-    <param name="scale_linear" value="0.12" type="double"/>
+    <param name="scale_linear" value="0.15" type="double"/>
     <param name="scale_angular" value="0.50" type="double"/>
 
     <param name="turbo_scale_linear" value="0.5" type="double"/>

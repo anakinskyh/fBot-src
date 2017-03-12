@@ -12,7 +12,7 @@
     <!--<include file='$(find robot_main)/launch/includes/kobuki_node.launch'/>-->
 
     <!--hokuyo-->
-    <include file="$(find robot_main)/launch/includes/hokuyo.launch"/>
+    <!-- <include file="$(find robot_main)/launch/includes/hokuyo.launch"/> -->
 
     <!--joystick-->
     <include file="$(find robot_main)/launch/includes/joystick.launch"/>

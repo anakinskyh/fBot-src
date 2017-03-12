@@ -3,7 +3,8 @@
 <!-- Launch File For Move_base Automatic Navigation System -->
 <launch>
 
-  <arg name="map_path" default="$(find ros_dumbobot_nav)/map/lab20_102.yaml"/>
+  <!-- <arg name="map_path" default="$(find ros_dumbobot_nav)/map/lab20_102.yaml"/> -->
+  <arg name='map_path' default='/home/anakin/map/map20center.yaml'/>
 
   <!--map-->
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_path)"/>

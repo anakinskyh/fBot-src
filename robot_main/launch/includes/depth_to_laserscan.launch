@@ -3,7 +3,7 @@
     <arg name="kinect_name" default="camera"/>
 
     <!-- Nodelet manager for this pipeline -->
-     <node pkg="nodelet" type="nodelet" args="manager" name="$(arg kinect_name)_record_player_manager" output="screen"/> 
+     <node pkg="nodelet" type="nodelet" args="manager" name="$(arg kinect_name)_record_player_manager" output="screen"/>
 
     <!-- Nodelet to convert the filtered depth into a pointcloud    -->
     <!-- <node pkg="nodelet" type="nodelet" name="$(arg kinect_name)_depth_filtered_cloudify" args="load depth_image_proc/point_cloud_xyzrgb $(arg kinect_name)_record_player_manager" output="screen">
@@ -32,7 +32,7 @@
     </node> -->
 
     <!-- depth_image to laser -->
-    
+
 
     <node pkg='topic_tools' type='relay' name='depth_to_depthhw'
       args='$(arg kinect_name)/depth_registered/hw_registered/camera_info $(arg kinect_name)/depth_registered/hw_registered/camera_info'/>
