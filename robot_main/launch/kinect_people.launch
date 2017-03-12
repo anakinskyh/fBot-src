@@ -1,4 +1,4 @@
-<launch>
+  <launch>
     <arg name='camera' value='kinect'/>
 
     <include file='$(find openni_launch)/launch/openni.launch'>
@@ -6,11 +6,11 @@
     </include>
 
     <!--<include file="$(find kinects_human_tracking)/launch/my_kinect_extrinsics.launch">
-         <arg name='camera_link' value='$(arg kinect_name)'/> 
+         <arg name='camera_link' value='$(arg kinect_name)'/>
     </include>-->
 
     <!--<include file="$(find face_detector)/launch/face_detector.rgbd.launch">
-         <arg name="depth_topic" default="sw_registered/image_rect_raw" /> 
+         <arg name="depth_topic" default="sw_registered/image_rect_raw" />
         <arg name="camera" value="$(arg camera)/" />
         <arg name="rgb_ns" value="rgb" />
         <arg name="depth_ns" value="depth_registered" />

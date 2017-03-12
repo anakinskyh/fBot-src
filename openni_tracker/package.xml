@@ -5,7 +5,7 @@
   <description>The OpenNI tracker broadcasts the OpenNI skeleton frames using tf.</description>
   <maintainer email="marcus.liebhardt@yujinrobot.com">Marcus Liebhardt</maintainer>
   <license>BSD</license>
-  <url type="website">http://www.ros.org/wiki/openni_tracker</url>  
+  <url type="website">http://www.ros.org/wiki/openni_tracker</url>
   <author email="tim.field@unknown.com">Tim Field</author>
 
   <buildtool_depend>catkin</buildtool_depend>
