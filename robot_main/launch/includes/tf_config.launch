@@ -14,8 +14,8 @@
         args='0 0 0 0 0 0 map kinect_link 100' /> -->
 
     <!-- just faker -->
-    <node pkg='tf' type='static_transform_publisher' name='map_to_base_link' args='0 0 0 0 0 0 1 map base_footprint 100'/>
-    <node pkg='tf' type='static_transform_publisher' name='base_link_to_odom' args='0 0 0 0 0 0 1 base_link odom 100'/>
+    <!-- <node pkg='tf' type='static_transform_publisher' name='map_to_base_link' args='0 0 0 0 0 0 1 map base_footprint 100'/> -->
+    <!-- <node pkg='tf' type='static_transform_publisher' name='base_link_to_odom' args='0 0 0 0 0 0 1 base_link odom 100'/> -->
 
     <!--camera-->
     <node pkg='tf' type='static_transform_publisher' name='base_link_to_openni_df' args='0 -0.04 0.47 0 0 0 1 base_link openni_depth_frame 100'/>
