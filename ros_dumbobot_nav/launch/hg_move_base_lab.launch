@@ -13,6 +13,8 @@
   <!--<include file="$(find ros_dumbobot_nav)/launch/hg_amcl_dumbo.launch" />-->
   <include file="$(find ros_dumbobot_nav)/launch/new_amcl.launch"/>
 
+  <include file="$(find ros_dumbobot_nav)/launch/robot_pose_ekf.launch"/>
+
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
 
     <rosparam file="$(find ros_dumbobot_nav)/hg_config/hg_move_base_param.yaml" command="load" />

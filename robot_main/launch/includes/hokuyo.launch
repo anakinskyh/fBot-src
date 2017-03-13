@@ -1,17 +1,17 @@
 <launch>
   <node name="hokuyo" pkg="hokuyo_node" type="hokuyo_node" respawn="false" output="screen">
-  
-    <!-- Starts up faster, but timestamps will be inaccurate. --> 
-    <param name="calibrate_time" type="bool" value="false"/> 
-    
+
+    <!-- Starts up faster, but timestamps will be inaccurate. -->
+    <param name="calibrate_time" type="bool" value="false"/>
+
     <!-- Set the port to connect to here -->
-    <param name="port" type="string" value="/dev/hokuyo"/> 
-  
+    <param name="port" type="string" value="/dev/hokuyo"/>
+
     <param name="intensity" type="bool" value="false"/>
 
     <!--send to move_base-->
     <!--<remap from="scan" to="sensor_msgs/LaserScan"/>-->
     <!--<remap from="scan" to="base_scan"/>-->
   </node>
- 
+
 </launch>

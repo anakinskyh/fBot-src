@@ -5,6 +5,7 @@
          <param name="odom_angular_scale_correction" value="1.08"/>
          <param name="odom_linear_scale_correction" value="1.0"/>
          <param name="has_gyro" value="false"/>
+         <remap from="odom" to='raw_odom'/>
 	 <param name="publish_tf" value="true"/>
     </node>
 </launch>
