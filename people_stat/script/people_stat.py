@@ -42,7 +42,7 @@ class people_stat():
 
             # create msg
             people_msg = People()
-            people_msg.header.stamp = rospy.Time()
+            people_msg.header.stamp = rospy.Time.now()
             people_msg.header.frame_id = self.frame_id
 
             self.people_now = {}
@@ -99,8 +99,8 @@ class people_stat():
 
             self.people_prev = self.people_now
 
-            if people_cnt <= 0:
-                continue
+            # if people_cnt <= 0:
+            #     continue
 
             # rospy.loginfo('publish di wa')
             # rospy.loginfo(people_msg)

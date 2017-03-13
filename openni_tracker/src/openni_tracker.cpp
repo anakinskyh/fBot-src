@@ -100,8 +100,8 @@ void publishTransforms(const std::string& frame_id) {
 
     for (int i = 0; i < users_count; ++i) {
         XnUserID user = users[i];
-        //if (!g_UserGenerator.GetSkeletonCap().IsTracking(user))
-        //    continue;
+        if (!g_UserGenerator.GetSkeletonCap().IsTracking(user))
+           continue;
 
         // ROS_INFO("do what");
 

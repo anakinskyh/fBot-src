@@ -27,20 +27,20 @@
     Specifies the expected noise in odometry's rotation estimate from the rotational component of the robot's motion. -->
     <param name="odom_alpha1"               value="0.2"/>
 
-    <!-- ~odom_alpha2 (double, default: 0.2)
+    <!-- ~odom_alpha2 (double, default: 0.2) 1.5 old
     Specifies the expected noise in odometry's rotation estimate from translational component of the robot's motion. -->
     <param name="odom_alpha2"               value="1.5"/>
 
-    <!-- ~odom_alpha3 (double, default: 0.2)
+    <!-- ~odom_alpha3 (double, default: 0.2) 1.0 old
     Specifies the expected noise in odometry's translation estimate from the translational component of the robot's motion. -->
     <param name="odom_alpha3"               value="1.0"/>
 
-    <!-- ~odom_alpha4 (double, default: 0.2)
+    <!-- ~odom_alpha4 (double, default: 0.2) old 0.8
     Specifies the expected noise in odometry's translation estimate from the rotational component of the robot's motion. -->
     <param name="odom_alpha4"               value="0.8"/>
 
     <!-- Publish scans from best pose at a max of 10 Hz -->
-    <param name="gui_publish_rate"          value="15.0"/>
+    <param name="gui_publish_rate"          value="10.0"/>
 
     <!-- How many evenly-spaced beams in each scan to be used when updating the filter.     -->
     <param name="laser_max_beams"           value="60"/>

@@ -11,7 +11,7 @@ obstacle_layer:
   mark_threshold:       0
   combination_method:   1
   track_unknown_space:  true    #true needed for disabling global path planning through unknown space
-  obstacle_range: 2.4 #1.5
+  obstacle_range: 1.5 #anakin #2.4 #1.5
   #2.5 #1.0 2---1.8
   raytrace_range: 2.5 #1.6
   #3.0 #1.1 #2.5 0----2.0
@@ -37,10 +37,10 @@ inflation_layer:
 social_layer:
   enabled:  true
   cutoff: 10.0 # default 10.0 Smallest value to publish on costmap adjustments
-  amplitude: 77 #77.0 # Amplitude of adjustments at peak
+  amplitude: 100 #77 #77.0 # Amplitude of adjustments at peak
   covariance: 0.25
-  factor: 5.0 # Factor with which to scale the velocity
-  keep_time: 0.2 # Pause before clearing leg list
+  factor: 2.0 #5.0 # Factor with which to scale the velocity
+  keep_time: 0.0 # Pause before clearing leg list
 
 static_layer:
   enabled:              true
