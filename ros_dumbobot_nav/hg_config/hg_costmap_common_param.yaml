@@ -19,13 +19,14 @@ obstacle_layer:
   z_resolution: 0.2
   z_voxels: 10 #2
   publish_voxel_map: true
-  observation_sources: laser_scan_sensor point_cloud_laser # human_layer
+  observation_sources: laser_scan_sensor # point_cloud_laser # human_layer
   laser_scan_sensor:
     sensor_frame: /laser
     data_type: LaserScan
     topic: /scan
     marking: true
     clearing: true
+    inf_is_valid: true
 
 inflation_layer:
   enabled:              true
@@ -35,11 +36,11 @@ inflation_layer:
 # add by anakin
 social_layer:
   enabled:  true
-  cutoff: 1.0 # default 10.0 Smallest value to publish on costmap adjustments
-  amplitude: 3 #77.0 # Amplitude of adjustments at peak
+  cutoff: 10.0 # default 10.0 Smallest value to publish on costmap adjustments
+  amplitude: 77 #77.0 # Amplitude of adjustments at peak
   covariance: 0.25
-  factor: 10.0 # Factor with which to scale the velocity
-  keep_time: 0.75 # Pause before clearing leg list
+  factor: 5.0 # Factor with which to scale the velocity
+  keep_time: 0.2 # Pause before clearing leg list
 
 static_layer:
   enabled:              true

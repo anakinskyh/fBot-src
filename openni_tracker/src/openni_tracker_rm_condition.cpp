@@ -102,7 +102,7 @@ void publishTransforms(const std::string& frame_id) {
         XnUserID user = users[i];
         //if (!g_UserGenerator.GetSkeletonCap().IsTracking(user))
         //    continue;
-        
+
         // ROS_INFO("do what");
 
         publishTransform(user, XN_SKEL_HEAD,           frame_id, "head");
@@ -185,11 +185,11 @@ int main(int argc, char **argv) {
 
 	ros::Rate r(30);
 
-        
+
         ros::NodeHandle pnh("~");
         string frame_id("openni_depth_frame");
         pnh.getParam("camera_frame_id", frame_id);
-                
+
 	while (ros::ok()) {
 		g_Context.WaitAndUpdateAll();
 		publishTransforms(frame_id);

@@ -10,7 +10,7 @@ Panels:
         - /Global Planning1
         - /Global Planning1/Planner1
       Splitter Ratio: 0.5
-    Tree Height: 504
+    Tree Height: 529
   - Class: rviz/Selection
     Name: Selection
   - Class: rviz/Tool Properties
@@ -18,7 +18,7 @@ Panels:
       - /2D Pose Estimate1
       - /2D Nav Goal1
     Name: Tool Properties
-    Splitter Ratio: 0.588679016
+    Splitter Ratio: 0.5886790156364441
   - Class: rviz/Views
     Expanded:
       - /Current View1
@@ -38,7 +38,7 @@ Visualization Manager:
       Color: 160; 160; 164
       Enabled: true
       Line Style:
-        Line Width: 0.0299999993
+        Line Width: 0.029999999329447746
         Value: Lines
       Name: Grid
       Normal Cell Count: 0
@@ -75,11 +75,285 @@ Visualization Manager:
           Value: true
         base_link:
           Value: true
+        camera_link:
+          Value: true
+        head_1:
+          Value: true
+        head_2:
+          Value: true
+        head_3:
+          Value: true
+        head_4:
+          Value: true
+        head_5:
+          Value: true
+        head_6:
+          Value: true
+        head_7:
+          Value: true
+        head_8:
+          Value: true
+        head_9:
+          Value: true
         laser:
+          Value: true
+        left_elbow_1:
+          Value: true
+        left_elbow_2:
+          Value: true
+        left_elbow_3:
+          Value: true
+        left_elbow_4:
+          Value: true
+        left_elbow_5:
+          Value: true
+        left_elbow_6:
+          Value: true
+        left_elbow_7:
+          Value: true
+        left_elbow_8:
+          Value: true
+        left_elbow_9:
+          Value: true
+        left_foot_1:
+          Value: true
+        left_foot_2:
+          Value: true
+        left_foot_3:
+          Value: true
+        left_foot_4:
+          Value: true
+        left_foot_5:
+          Value: true
+        left_foot_6:
+          Value: true
+        left_foot_7:
+          Value: true
+        left_foot_8:
+          Value: true
+        left_foot_9:
+          Value: true
+        left_hand_1:
+          Value: true
+        left_hand_2:
+          Value: true
+        left_hand_3:
+          Value: true
+        left_hand_4:
+          Value: true
+        left_hand_5:
+          Value: true
+        left_hand_6:
+          Value: true
+        left_hand_7:
+          Value: true
+        left_hand_8:
+          Value: true
+        left_hand_9:
+          Value: true
+        left_hip_1:
+          Value: true
+        left_hip_2:
+          Value: true
+        left_hip_3:
+          Value: true
+        left_hip_4:
+          Value: true
+        left_hip_5:
+          Value: true
+        left_hip_6:
+          Value: true
+        left_hip_7:
+          Value: true
+        left_hip_8:
+          Value: true
+        left_hip_9:
+          Value: true
+        left_knee_1:
+          Value: true
+        left_knee_2:
+          Value: true
+        left_knee_3:
+          Value: true
+        left_knee_4:
+          Value: true
+        left_knee_5:
+          Value: true
+        left_knee_6:
+          Value: true
+        left_knee_7:
+          Value: true
+        left_knee_8:
+          Value: true
+        left_knee_9:
+          Value: true
+        left_shoulder_1:
+          Value: true
+        left_shoulder_2:
+          Value: true
+        left_shoulder_3:
+          Value: true
+        left_shoulder_4:
+          Value: true
+        left_shoulder_5:
+          Value: true
+        left_shoulder_6:
+          Value: true
+        left_shoulder_7:
+          Value: true
+        left_shoulder_8:
+          Value: true
+        left_shoulder_9:
           Value: true
         map:
           Value: true
+        neck_1:
+          Value: true
+        neck_2:
+          Value: true
+        neck_3:
+          Value: true
+        neck_4:
+          Value: true
+        neck_5:
+          Value: true
+        neck_6:
+          Value: true
+        neck_7:
+          Value: true
+        neck_8:
+          Value: true
+        neck_9:
+          Value: true
         odom:
+          Value: true
+        openni_depth_frame:
+          Value: true
+        right_elbow_1:
+          Value: true
+        right_elbow_2:
+          Value: true
+        right_elbow_3:
+          Value: true
+        right_elbow_4:
+          Value: true
+        right_elbow_5:
+          Value: true
+        right_elbow_6:
+          Value: true
+        right_elbow_7:
+          Value: true
+        right_elbow_8:
+          Value: true
+        right_elbow_9:
+          Value: true
+        right_foot_1:
+          Value: true
+        right_foot_2:
+          Value: true
+        right_foot_3:
+          Value: true
+        right_foot_4:
+          Value: true
+        right_foot_5:
+          Value: true
+        right_foot_6:
+          Value: true
+        right_foot_7:
+          Value: true
+        right_foot_8:
+          Value: true
+        right_foot_9:
+          Value: true
+        right_hand_1:
+          Value: true
+        right_hand_2:
+          Value: true
+        right_hand_3:
+          Value: true
+        right_hand_4:
+          Value: true
+        right_hand_5:
+          Value: true
+        right_hand_6:
+          Value: true
+        right_hand_7:
+          Value: true
+        right_hand_8:
+          Value: true
+        right_hand_9:
+          Value: true
+        right_hip_1:
+          Value: true
+        right_hip_2:
+          Value: true
+        right_hip_3:
+          Value: true
+        right_hip_4:
+          Value: true
+        right_hip_5:
+          Value: true
+        right_hip_6:
+          Value: true
+        right_hip_7:
+          Value: true
+        right_hip_8:
+          Value: true
+        right_hip_9:
+          Value: true
+        right_knee_1:
+          Value: true
+        right_knee_2:
+          Value: true
+        right_knee_3:
+          Value: true
+        right_knee_4:
+          Value: true
+        right_knee_5:
+          Value: true
+        right_knee_6:
+          Value: true
+        right_knee_7:
+          Value: true
+        right_knee_8:
+          Value: true
+        right_knee_9:
+          Value: true
+        right_shoulder_1:
+          Value: true
+        right_shoulder_2:
+          Value: true
+        right_shoulder_3:
+          Value: true
+        right_shoulder_4:
+          Value: true
+        right_shoulder_5:
+          Value: true
+        right_shoulder_6:
+          Value: true
+        right_shoulder_7:
+          Value: true
+        right_shoulder_8:
+          Value: true
+        right_shoulder_9:
+          Value: true
+        torso_1:
+          Value: true
+        torso_2:
+          Value: true
+        torso_3:
+          Value: true
+        torso_4:
+          Value: true
+        torso_5:
+          Value: true
+        torso_6:
+          Value: true
+        torso_7:
+          Value: true
+        torso_8:
+          Value: true
+        torso_9:
           Value: true
       Marker Scale: 1
       Name: TF
@@ -91,8 +365,281 @@ Visualization Manager:
           odom:
             base_footprint:
               base_link:
+                camera_link:
+                  {}
                 laser:
                   {}
+                openni_depth_frame:
+                  head_1:
+                    {}
+                  head_2:
+                    {}
+                  head_3:
+                    {}
+                  head_4:
+                    {}
+                  head_5:
+                    {}
+                  head_6:
+                    {}
+                  head_7:
+                    {}
+                  head_8:
+                    {}
+                  head_9:
+                    {}
+                  left_elbow_1:
+                    {}
+                  left_elbow_2:
+                    {}
+                  left_elbow_3:
+                    {}
+                  left_elbow_4:
+                    {}
+                  left_elbow_5:
+                    {}
+                  left_elbow_6:
+                    {}
+                  left_elbow_7:
+                    {}
+                  left_elbow_8:
+                    {}
+                  left_elbow_9:
+                    {}
+                  left_foot_1:
+                    {}
+                  left_foot_2:
+                    {}
+                  left_foot_3:
+                    {}
+                  left_foot_4:
+                    {}
+                  left_foot_5:
+                    {}
+                  left_foot_6:
+                    {}
+                  left_foot_7:
+                    {}
+                  left_foot_8:
+                    {}
+                  left_foot_9:
+                    {}
+                  left_hand_1:
+                    {}
+                  left_hand_2:
+                    {}
+                  left_hand_3:
+                    {}
+                  left_hand_4:
+                    {}
+                  left_hand_5:
+                    {}
+                  left_hand_6:
+                    {}
+                  left_hand_7:
+                    {}
+                  left_hand_8:
+                    {}
+                  left_hand_9:
+                    {}
+                  left_hip_1:
+                    {}
+                  left_hip_2:
+                    {}
+                  left_hip_3:
+                    {}
+                  left_hip_4:
+                    {}
+                  left_hip_5:
+                    {}
+                  left_hip_6:
+                    {}
+                  left_hip_7:
+                    {}
+                  left_hip_8:
+                    {}
+                  left_hip_9:
+                    {}
+                  left_knee_1:
+                    {}
+                  left_knee_2:
+                    {}
+                  left_knee_3:
+                    {}
+                  left_knee_4:
+                    {}
+                  left_knee_5:
+                    {}
+                  left_knee_6:
+                    {}
+                  left_knee_7:
+                    {}
+                  left_knee_8:
+                    {}
+                  left_knee_9:
+                    {}
+                  left_shoulder_1:
+                    {}
+                  left_shoulder_2:
+                    {}
+                  left_shoulder_3:
+                    {}
+                  left_shoulder_4:
+                    {}
+                  left_shoulder_5:
+                    {}
+                  left_shoulder_6:
+                    {}
+                  left_shoulder_7:
+                    {}
+                  left_shoulder_8:
+                    {}
+                  left_shoulder_9:
+                    {}
+                  neck_1:
+                    {}
+                  neck_2:
+                    {}
+                  neck_3:
+                    {}
+                  neck_4:
+                    {}
+                  neck_5:
+                    {}
+                  neck_6:
+                    {}
+                  neck_7:
+                    {}
+                  neck_8:
+                    {}
+                  neck_9:
+                    {}
+                  right_elbow_1:
+                    {}
+                  right_elbow_2:
+                    {}
+                  right_elbow_3:
+                    {}
+                  right_elbow_4:
+                    {}
+                  right_elbow_5:
+                    {}
+                  right_elbow_6:
+                    {}
+                  right_elbow_7:
+                    {}
+                  right_elbow_8:
+                    {}
+                  right_elbow_9:
+                    {}
+                  right_foot_1:
+                    {}
+                  right_foot_2:
+                    {}
+                  right_foot_3:
+                    {}
+                  right_foot_4:
+                    {}
+                  right_foot_5:
+                    {}
+                  right_foot_6:
+                    {}
+                  right_foot_7:
+                    {}
+                  right_foot_8:
+                    {}
+                  right_foot_9:
+                    {}
+                  right_hand_1:
+                    {}
+                  right_hand_2:
+                    {}
+                  right_hand_3:
+                    {}
+                  right_hand_4:
+                    {}
+                  right_hand_5:
+                    {}
+                  right_hand_6:
+                    {}
+                  right_hand_7:
+                    {}
+                  right_hand_8:
+                    {}
+                  right_hand_9:
+                    {}
+                  right_hip_1:
+                    {}
+                  right_hip_2:
+                    {}
+                  right_hip_3:
+                    {}
+                  right_hip_4:
+                    {}
+                  right_hip_5:
+                    {}
+                  right_hip_6:
+                    {}
+                  right_hip_7:
+                    {}
+                  right_hip_8:
+                    {}
+                  right_hip_9:
+                    {}
+                  right_knee_1:
+                    {}
+                  right_knee_2:
+                    {}
+                  right_knee_3:
+                    {}
+                  right_knee_4:
+                    {}
+                  right_knee_5:
+                    {}
+                  right_knee_6:
+                    {}
+                  right_knee_7:
+                    {}
+                  right_knee_8:
+                    {}
+                  right_knee_9:
+                    {}
+                  right_shoulder_1:
+                    {}
+                  right_shoulder_2:
+                    {}
+                  right_shoulder_3:
+                    {}
+                  right_shoulder_4:
+                    {}
+                  right_shoulder_5:
+                    {}
+                  right_shoulder_6:
+                    {}
+                  right_shoulder_7:
+                    {}
+                  right_shoulder_8:
+                    {}
+                  right_shoulder_9:
+                    {}
+                  torso_1:
+                    {}
+                  torso_2:
+                    {}
+                  torso_3:
+                    {}
+                  torso_4:
+                    {}
+                  torso_5:
+                    {}
+                  torso_6:
+                    {}
+                  torso_7:
+                    {}
+                  torso_8:
+                    {}
+                  torso_9:
+                    {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -118,7 +665,7 @@ Visualization Manager:
       Queue Size: 10
       Selectable: true
       Size (Pixels): 3
-      Size (m): 0.00999999978
+      Size (m): 0.009999999776482582
       Style: Squares
       Topic: /scan
       Unreliable: false
@@ -148,7 +695,7 @@ Visualization Manager:
       Queue Size: 10
       Selectable: true
       Size (Pixels): 3
-      Size (m): 0.0500000007
+      Size (m): 0.05000000074505806
       Style: Flat Squares
       Topic: /ir_scan
       Unreliable: false
@@ -178,7 +725,7 @@ Visualization Manager:
       Queue Size: 10
       Selectable: true
       Size (Pixels): 3
-      Size (m): 0.0199999996
+      Size (m): 0.019999999552965164
       Style: Flat Squares
       Topic: /virtual_sensor_scan
       Unreliable: false
@@ -208,14 +755,14 @@ Visualization Manager:
       Queue Size: 10
       Selectable: true
       Size (Pixels): 3
-      Size (m): 0.0399999991
+      Size (m): 0.03999999910593033
       Style: Flat Squares
       Topic: /mobile_base/sensors/bumper_pointcloud
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
       Value: true
-    - Alpha: 0.699999988
+    - Alpha: 0.699999988079071
       Class: rviz/Map
       Color Scheme: map
       Draw Behind: false
@@ -226,34 +773,34 @@ Visualization Manager:
       Value: true
     - Class: rviz/Group
       Displays:
-        - Alpha: 0.699999988
+        - Alpha: 0.699999988079071
           Class: rviz/Map
           Color Scheme: costmap
           Draw Behind: false
-          Enabled: false
+          Enabled: true
           Name: Costmap
           Topic: /move_base/local_costmap/costmap
           Unreliable: false
-          Value: false
+          Value: true
         - Alpha: 1
           Buffer Length: 1
           Class: rviz/Path
           Color: 0; 12; 255
           Enabled: true
-          Head Diameter: 0.300000012
-          Head Length: 0.200000003
-          Length: 0.300000012
+          Head Diameter: 0.30000001192092896
+          Head Length: 0.20000000298023224
+          Length: 0.30000001192092896
           Line Style: Lines
-          Line Width: 0.0299999993
+          Line Width: 0.029999999329447746
           Name: Planner
           Offset:
             X: 0
             Y: 0
             Z: 0
           Pose Style: None
-          Radius: 0.0299999993
-          Shaft Diameter: 0.100000001
-          Shaft Length: 0.100000001
+          Radius: 0.029999999329447746
+          Shaft Diameter: 0.10000000149011612
+          Shaft Length: 0.10000000149011612
           Topic: /move_base/DWAPlannerROS/local_plan
           Unreliable: false
           Value: true
@@ -272,7 +819,7 @@ Visualization Manager:
           Enabled: true
           Invert Rainbow: false
           Max Color: 255; 255; 255
-          Max Intensity: 726.299988
+          Max Intensity: 726.2999877929688
           Min Color: 0; 0; 0
           Min Intensity: 0
           Name: Cost Cloud
@@ -280,7 +827,7 @@ Visualization Manager:
           Queue Size: 10
           Selectable: true
           Size (Pixels): 3
-          Size (m): 0.0399999991
+          Size (m): 0.03999999910593033
           Style: Flat Squares
           Topic: /move_base/DWAPlannerROS/cost_cloud
           Unreliable: false
@@ -302,15 +849,15 @@ Visualization Manager:
           Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
-          Max Intensity: 128.274994
+          Max Intensity: 128.27499389648438
           Min Color: 0; 0; 0
-          Min Intensity: 43.2000008
+          Min Intensity: 43.20000076293945
           Name: Trajectory Cloud
           Position Transformer: XYZ
           Queue Size: 10
           Selectable: true
           Size (Pixels): 3
-          Size (m): 0.0399999991
+          Size (m): 0.03999999910593033
           Style: Flat Squares
           Topic: /move_base/DWAPlannerROS/trajectory_cloud
           Unreliable: false
@@ -321,7 +868,7 @@ Visualization Manager:
       Name: Local Planning
     - Class: rviz/Group
       Displays:
-        - Alpha: 0.400000006
+        - Alpha: 0.4000000059604645
           Class: rviz/Map
           Color Scheme: costmap
           Draw Behind: true
@@ -335,20 +882,20 @@ Visualization Manager:
           Class: rviz/Path
           Color: 255; 0; 0
           Enabled: true
-          Head Diameter: 0.300000012
-          Head Length: 0.200000003
-          Length: 0.300000012
+          Head Diameter: 0.30000001192092896
+          Head Length: 0.20000000298023224
+          Length: 0.30000001192092896
           Line Style: Lines
-          Line Width: 0.0299999993
+          Line Width: 0.029999999329447746
           Name: Planner
           Offset:
             X: 0
             Y: 0
             Z: 0
           Pose Style: None
-          Radius: 0.0299999993
-          Shaft Diameter: 0.100000001
-          Shaft Length: 0.100000001
+          Radius: 0.029999999329447746
+          Shaft Diameter: 0.10000000149011612
+          Shaft Length: 0.10000000149011612
           Topic: /move_base/DWAPlannerROS/global_plan
           Unreliable: false
           Value: true
@@ -356,31 +903,31 @@ Visualization Manager:
       Name: Global Planning
     - Alpha: 1
       Axes Length: 1
-      Axes Radius: 0.100000001
+      Axes Radius: 0.10000000149011612
       Class: rviz/Pose
       Color: 255; 25; 0
       Enabled: true
-      Head Length: 0.200000003
-      Head Radius: 0.100000001
+      Head Length: 0.20000000298023224
+      Head Radius: 0.10000000149011612
       Name: Pose (move_base)
       Shaft Length: 1
-      Shaft Radius: 0.0500000007
+      Shaft Radius: 0.05000000074505806
       Shape: Arrow
       Topic: /move_base/current_goal
       Unreliable: false
       Value: true
     - Alpha: 1
-      Arrow Length: 0.200000003
-      Axes Length: 0.300000012
-      Axes Radius: 0.00999999978
+      Arrow Length: 0.20000000298023224
+      Axes Length: 0.30000001192092896
+      Axes Radius: 0.009999999776482582
       Class: rviz/PoseArray
       Color: 0; 192; 0
       Enabled: true
-      Head Length: 0.0700000003
-      Head Radius: 0.0299999993
+      Head Length: 0.07000000029802322
+      Head Radius: 0.029999999329447746
       Name: ParticleCloud
-      Shaft Length: 0.230000004
-      Shaft Radius: 0.00999999978
+      Shaft Length: 0.23000000417232513
+      Shaft Radius: 0.009999999776482582
       Shape: Arrow (Flat)
       Topic: /particlecloud
       Unreliable: false
@@ -390,31 +937,31 @@ Visualization Manager:
       Class: rviz/Path
       Color: 25; 255; 0
       Enabled: false
-      Head Diameter: 0.300000012
-      Head Length: 0.200000003
-      Length: 0.300000012
+      Head Diameter: 0.30000001192092896
+      Head Length: 0.20000000298023224
+      Length: 0.30000001192092896
       Line Style: Lines
-      Line Width: 0.0299999993
+      Line Width: 0.029999999329447746
       Name: Path (global)
       Offset:
         X: 0
         Y: 0
         Z: 0
       Pose Style: None
-      Radius: 0.0299999993
-      Shaft Diameter: 0.100000001
-      Shaft Length: 0.100000001
+      Radius: 0.029999999329447746
+      Shaft Diameter: 0.10000000149011612
+      Shaft Length: 0.10000000149011612
       Topic: /move_base/NavfnROS/plan
       Unreliable: false
       Value: false
-    - Angle Tolerance: 0.100000001
+    - Angle Tolerance: 0.10000000149011612
       Class: rviz/Odometry
       Color: 48; 48; 48
       Enabled: false
       Keep: 10
-      Length: 0.400000006
+      Length: 0.4000000059604645
       Name: Odometry
-      Position Tolerance: 0.100000001
+      Position Tolerance: 0.10000000149011612
       Topic: /odom
       Value: false
     - Class: rviz/MarkerArray
@@ -430,20 +977,20 @@ Visualization Manager:
       Class: rviz/Path
       Color: 255; 85; 255
       Enabled: true
-      Head Diameter: 0.300000012
-      Head Length: 0.200000003
-      Length: 0.300000012
+      Head Diameter: 0.30000001192092896
+      Head Length: 0.20000000298023224
+      Length: 0.30000001192092896
       Line Style: Lines
-      Line Width: 0.0299999993
+      Line Width: 0.029999999329447746
       Name: Path
       Offset:
         X: 0
         Y: 0
         Z: 0
       Pose Style: None
-      Radius: 0.0299999993
-      Shaft Diameter: 0.100000001
-      Shaft Length: 0.100000001
+      Radius: 0.029999999329447746
+      Shaft Diameter: 0.10000000149011612
+      Shaft Length: 0.10000000149011612
       Topic: /move_base/GlobalPlanner/plan
       Unreliable: false
       Value: true
@@ -467,24 +1014,24 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 17.2214756
+      Distance: 24.854454040527344
       Enable Stereo Rendering:
-        Stereo Eye Separation: 0.0599999987
+        Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 5.01261997
-        Y: 4.28547001
-        Z: -0.424504012
+        X: 5.012619972229004
+        Y: 4.285470008850098
+        Z: -0.42450401186943054
       Focal Shape Fixed Size: true
-      Focal Shape Size: 0.0500000007
+      Focal Shape Size: 0.05000000074505806
       Name: Current View
-      Near Clip Distance: 0.00999999978
-      Pitch: 1.52980006
+      Near Clip Distance: 0.009999999776482582
+      Pitch: 1.5298000574111938
       Target Frame: base_link
       Value: Orbit (rviz)
-      Yaw: 6.14821005
+      Yaw: 6.148210048675537
     Saved: ~
 Window Geometry:
   Displays:
@@ -492,7 +1039,7 @@ Window Geometry:
   Height: 721
   Hide Left Dock: false
   Hide Right Dock: false
-  QMainWindow State: 000000ff00000000fd0000000400000000000001e100000285fc0200000005fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000006100fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003400000285000000d500ffffff000000010000010b0000038bfc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a0056006900650077007300000000320000038b000000a900fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000004a00000003efc0100000002fb0000000800540069006d00650000000000000004a00000021d00fffffffb0000000800540069006d006501000000000000045000000000000000000000036f0000028500000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd0000000400000000000001e100000292fc0200000005fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005000fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000002900000292000000a700ffffff000000010000010b0000038bfc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a0056006900650077007300000000320000038b0000008900fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000004a00000003efc0100000002fb0000000800540069006d00650000000000000004a00000020b00fffffffb0000000800540069006d00650100000000000004500000000000000000000003710000029200000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Time:

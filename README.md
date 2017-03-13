@@ -30,8 +30,12 @@ Run `roslaunch robot_main running_avg_led.launch`
 ### Run navigation stack
 You need to run `roslaunch ros_dumbobot_nav hg_move_base_lab.launch`.
 If you need to monitor on other machine you can run
-`rosrun rviz rviz $(rospack find ros_dumbobot_nav)/rviz/my_ros_rviz.rviz`
+`rosrun rviz rviz -d $(rospack find ros_dumbobot_nav)/rviz/my_ros_rviz.rviz`
 
 And If you need to run human detection module you need to connect to kinect and run `roslaunch robot_main openni_tracker.launch`
 
 That will run *openni_tracker and people_stat*
+
+### Sync source code
+To sync code with other machine
+`rsync -av fBot-src username@host:fBot-src`

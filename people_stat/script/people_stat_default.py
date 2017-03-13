@@ -44,10 +44,10 @@ class people_stat():
                     child = 'neck_'+str(i)
                     time = rospy.Time(0)
                     dur = rospy.Duration.from_sec(0.01)
-                    
+
                     (pose,qt) = self.listener.lookupTransform(self.frame_id,child,time)
                     (lin,ang) = self.listener.lookupTwist(self.frame_id,child,time,dur)
-                    
+
                     if all(v == 0 for v in lin) or all(v == 0 for v in ang):
                         continue
 
@@ -75,14 +75,14 @@ class people_stat():
 
             if people_cnt <= 0:
                 continue
-            
-            rospy.loginfo('publish di wa')
-            rospy.loginfo(people_msg)
+
+            # rospy.loginfo('publish di wa')
+            # rospy.loginfo(people_msg)
 
             self.pub.publish(people_msg)
 
             self.rate.sleep()
-            
+
 
     def send_vel(self,msg):
         rospy.loginfo('calculate_vel')

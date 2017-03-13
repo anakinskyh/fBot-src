@@ -2,7 +2,7 @@
     <!-- Setup the Configuration of ROBOT -->
     <!-- <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser_broadcaster" args="0.12 0 0.21 0 0 0 1 base_link laser 100"/> -->
     <!-- camera laser -->
-    <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser_broadcaster" args="0 -0.04 0.47 0 0 0 1 base_link laser 100"/>
+    <!-- <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser_broadcaster" args="0 -0.04 0.47 0 0 0 1 base_link laser 100"/> -->
 
     <node pkg="tf" type="static_transform_publisher" name="base_footprint_to_laser" args="0.12 0 0.21 0 0 0 1 base_link laser 100"/>
     <node pkg="tf" type="static_transform_publisher" name="base_footprint_to_base_link" args="0 0 0.13 0 0 0 1 base_footprint base_link 100"/>
@@ -21,7 +21,7 @@
     <!-- <node pkg='tf' type='static_transform_publisher' name='base_link_to_odom' args='0 0 0 0 0 0 1 base_link odom 100'/> -->
 
     <!--camera-->
-    <!-- <node pkg='tf' type='static_transform_publisher' name='base_link_to_openni_df' args='0 -0.04 0.47 0 0 0 1 base_link openni_depth_frame 100'/> -->
-    <node pkg='tf' type='static_transform_publisher' name='base_link_to_openni_df' args='0 -0.04 0.47 0 0 0 1 base_link camera_depth_frame 100'/>
+    <node pkg='tf' type='static_transform_publisher' name='base_link_to_openni_df' args='0 -0.04 0.47 0 0 0 1 base_link openni_depth_frame 100'/>
+    <!-- <node pkg='tf' type='static_transform_publisher' name='base_link_to_openni_df' args='0 -0.04 0.47 0 0 0 1 base_link camera_depth_frame 100'/> -->
     <node pkg='tf' type='static_transform_publisher' name='base_link_to_camera_link' args='0 -0.04 0.47 0 0 0 1 base_link camera_link 100'/>
 </launch>
