@@ -29,6 +29,8 @@ class people_stat():
         self.dur_tf = rospy.get_param('dur_tf',2.0)
         self.dur_tw = rospy.get_param('dur_tw',0.5)
 
+        self.threshold = rospy.get_param('vel_threshold',1.0)
+
     def publisher(self):
         self.pub = rospy.Publisher(self.people_topic,People,queue_size=10)
 
@@ -54,20 +56,16 @@ class people_stat():
                     child = 'neck_'+str(i)
                     time = rospy.Time(0)
 
-                    (pose,qt) = self.listener.lookupTransform(self.frame_id,child,time,self.dur_tf)
-                    (lin,ang) = self.listener.lookupTwist(self.frame_id,child,time,self.dur_tw)
-                    # rospy.loginfo(child)
-                    if all(v == 0 for v in lin) or all(v == 0 for v in ang):
-                        continue
+                    (pose,qt) = self.listener.lookupTransform(self.frame_id,child,rospy.Time.now()-rospy.Duration(self.dur_tf))
+                    # (pose,qt) = self.listener.lookupTransform(self.frame_id,child,rospy.Time(0))
+                    (lin,ang) = self.listener.lookupTwist(self.frame_id,child,rospy.Time(0),rospy.Duration(self.dur_tw))
+
+                    # if all(v == 0 for v in lin) or all(v == 0 for v in ang):
+                    #     continue
 
                     # linear vel is too small
-                    if np.linalg.norm(np.array(lin)-0) < self.nzero:
-                        continue
-
-                    rospy.loginfo(np.linalg.norm(np.array(lin)-0))
-                    # rospy.loginfo(time)
-                    # rospy.loginfo(lin)
-                    # rospy.loginfo(ang)
+                    # if np.linalg.norm(np.array(lin)-0) < self.nzero:
+                    #     continue
 
                     person_msg = Person()
                     person_msg.name  = 'vel_%s' % (child)
@@ -88,6 +86,9 @@ class people_stat():
                             (self.change*lin[0], \
                             self.change*lin[1], \
                             self.change*lin[2])
+
+                    if np.linalg.norm(np.array(lin)-0) < self.threshold:
+                        (person_msg.velocity.x,person_msg.velocity.y,person_msg.velocity.z) = (0,0,0)
 
                     self.people_now[child] = person_msg
                     people_msg.people.append(person_msg)
