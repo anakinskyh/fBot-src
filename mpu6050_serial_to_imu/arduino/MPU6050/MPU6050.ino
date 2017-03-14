@@ -217,6 +217,8 @@ void loop() {
         // .
         // .
         // .
+
+        //write other program
     }
 
     // reset interrupt flag and get INT_STATUS byte
