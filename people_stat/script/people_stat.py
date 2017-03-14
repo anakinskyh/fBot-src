@@ -11,7 +11,7 @@ class people_stat():
         rospy.init_node('people_stat')
 
         # set up
-        self.nzero = 1e-4
+        self.nzero = 1e-3
         self.listener = tf.TransformListener()
         self.publisher()
 
@@ -26,6 +26,8 @@ class people_stat():
         # self.sensitive_dist = rospy.get_param('sensitive_dist',2.0)
         # self.minimum_vel = rospy.get_param('minimum_vel',2.0)
         self.change = rospy.get_param('change',0.05)
+        self.dur_tf = rospy.get_param('dur_tf',2.0)
+        self.dur_tw = rospy.get_param('dur_tw',0.5)
 
     def publisher(self):
         self.pub = rospy.Publisher(self.people_topic,People,queue_size=10)
@@ -51,11 +53,10 @@ class people_stat():
                 try:
                     child = 'neck_'+str(i)
                     time = rospy.Time(0)
-                    dur = rospy.Duration.from_sec(0.8)
 
-                    (pose,qt) = self.listener.lookupTransform(self.frame_id,child,time)
-                    (lin,ang) = self.listener.lookupTwist(self.frame_id,child,time,dur)
-
+                    (pose,qt) = self.listener.lookupTransform(self.frame_id,child,time,self.dur_tf)
+                    (lin,ang) = self.listener.lookupTwist(self.frame_id,child,time,self.dur_tw)
+                    # rospy.loginfo(child)
                     if all(v == 0 for v in lin) or all(v == 0 for v in ang):
                         continue
 
@@ -63,7 +64,7 @@ class people_stat():
                     if np.linalg.norm(np.array(lin)-0) < self.nzero:
                         continue
 
-                    # rospy.loginfo(child)
+                    rospy.loginfo(np.linalg.norm(np.array(lin)-0))
                     # rospy.loginfo(time)
                     # rospy.loginfo(lin)
                     # rospy.loginfo(ang)
