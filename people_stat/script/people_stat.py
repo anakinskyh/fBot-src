@@ -21,13 +21,14 @@ class people_stat():
     def get_param(self):
         rospy.loginfo('get_param')
         self.max_people = rospy.get_param('max_people',15)
-        self.frame_id = rospy.get_param('camera_frame_id','openni_depth_frame')
+        # self.frame_id = rospy.get_param('camera_frame_id','openni_depth_frame')
+        self.frame_id = rospy.get_param('camera_frame_id','map')
         self.people_topic = rospy.get_param('people_topic','people')
         # self.sensitive_dist = rospy.get_param('sensitive_dist',2.0)
         # self.minimum_vel = rospy.get_param('minimum_vel',2.0)
         self.change = rospy.get_param('change',0.05)
         self.dur_tf = rospy.get_param('dur_tf',2.0)
-        self.dur_tw = rospy.get_param('dur_tw',0.5)
+        self.dur_tw = rospy.get_param('dur_tw',0.1)
 
         self.threshold = rospy.get_param('vel_threshold',1.0)
 
@@ -56,19 +57,21 @@ class people_stat():
                     child = 'neck_'+str(i)
                     time = rospy.Time(0)
 
-                    (pose,qt) = self.listener.lookupTransform(self.frame_id,child,rospy.Time.now()-rospy.Duration(self.dur_tf))
+                    if rospy.Time.now().secs>=self.dur_tf:
+                        starttf_time = rospy.Time.now()-rospy.Duration(self.dur_tf)
+                    else:
+                        starttf_time = rospy.Time(0)
+
+                    rospy.loginfo('%s %s'%(self.frame_id,child))
+
+                    (pose,qt) = self.listener.lookupTransform(self.frame_id,child,starttf_time)
                     # (pose,qt) = self.listener.lookupTransform(self.frame_id,child,rospy.Time(0))
                     (lin,ang) = self.listener.lookupTwist(self.frame_id,child,rospy.Time(0),rospy.Duration(self.dur_tw))
 
-                    # if all(v == 0 for v in lin) or all(v == 0 for v in ang):
-                    #     continue
 
-                    # linear vel is too small
-                    # if np.linalg.norm(np.array(lin)-0) < self.nzero:
-                    #     continue
 
                     person_msg = Person()
-                    person_msg.name  = 'vel_%s' % (child)
+                    person_msg.name  = 'vel_%s'%(str(i)) #'vel_%s' % (child)
                     (person_msg.position.x,person_msg.position.y,person_msg.position.z) = pose
 
 

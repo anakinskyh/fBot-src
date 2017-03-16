@@ -1,16 +1,16 @@
 local_costmap:
    global_frame: odom
    robot_base_frame: base_link
-   update_frequency: 12 #anakin #15 #8
+   update_frequency: 5 #8
    #10.0
-   publish_frequency: 20 #10
+   publish_frequency: 2 #10
    #5.0
    #2.0
    static_map: false
    rolling_window: true
-   width: 10.0 # support social 4.0
-   height: 10.0 # 4.0
-   resolution: 0.02 # for narrow 0.1(old)
+   width: 4.0 # support social 4.0
+   height: 4.0 # 4.0
+   resolution: 0.05 # anakin 0.02  # for narrow 0.1(old)
    #0.05
    transform_tolerance: 1.5
    plugins:
@@ -19,3 +19,4 @@ local_costmap:
     - {name: inflation_layer,     type: "costmap_2d::InflationLayer"}
     # - {name: human_layer,         type: "costmap_2d::VoxelLayer"} # remove by anakin
     - {name: social_layer,   type: "social_navigation_layers::ProxemicLayer"} # add by anakin
+    - {name: passing_layer,   type: "social_navigation_layers::PassingLayer"} # add by anakin

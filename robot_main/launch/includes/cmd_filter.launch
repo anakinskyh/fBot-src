@@ -8,7 +8,7 @@
         <param name="delay" value="$(arg deley_time)" />
         <!--<param name="queue_size" value="10.0" />-->
         <param name="sub_topic" value="raw_cmd_vel" />
-        <param name="pub_topic" value="cmd_vel" />
+        <param name="pub_topic" value="/navigation_velocity_smoother/raw_cmd_vel" />
 
         <!--make it smoother-->
     </node>

@@ -5,7 +5,7 @@ TrajectoryPlannerROS:
   #1.5 #2
 
 
-  max_vel_x: 0.2
+  max_vel_x: 0.3
   # m/s
   min_vel_x: -0.1 # anakin 0.1
   # m/s
