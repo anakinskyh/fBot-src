@@ -11,7 +11,7 @@ oscillation_timeout: 0.0
 oscillation_distance: 0.2
 
 #Local Planner
-# base_local_planner: "base_local_planner/TrajectoryPlannerROS"
-base_local_planner: "dwa_local_planner/DWAPlannerROS"
+base_local_planner: "base_local_planner/TrajectoryPlannerROS"
+# base_local_planner: "dwa_local_planner/DWAPlannerROS"
 base_global_planner: "global_planner/GlobalPlanner"
 #"global_planner/GlobalPlanner" #"navfn/NavfnROS"
