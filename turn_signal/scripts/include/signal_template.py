@@ -7,7 +7,7 @@ g1 = [0,13,0,1]
 g0 = [0,40,0,1] #rgba(241, 196, 15,1.0)
 
 right = np.array(z*5+g3*5+g2*4+g1*3+g0*3)
-right = np.append(left,left)
+right = np.append(right,right)
 
 # right =
 

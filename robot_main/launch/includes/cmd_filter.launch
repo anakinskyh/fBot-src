@@ -2,7 +2,7 @@
 <launch>
 
 
-    <arg name="deley_time" default="0.0"/><!-- 0.6 -->
+    <arg name="deley_time" default="0.3"/><!-- 0.6 -->
 
     <node pkg="turn_signal" type="cmd_vel_filter.py" name="turn_signal" output="screen">
         <param name="delay" value="$(arg deley_time)" />

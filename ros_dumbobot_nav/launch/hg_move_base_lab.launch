@@ -23,6 +23,7 @@
     <rosparam file="$(find ros_dumbobot_nav)/hg_config/hg_local_costmap_param.yaml" command="load" />
     <rosparam file="$(find ros_dumbobot_nav)/hg_config/hg_global_costmap_param.yaml" command="load" />
     <rosparam file="$(find ros_dumbobot_nav)/hg_config/hg_base_local_planner_param.yaml" command="load" />
+    <rosparam file="$(find ros_dumbobot_nav)/hg_config/dwa_local_planner_params.yaml" command="load" />
 
     <!--plugin-->
     <rosparam file="$(find ros_dumbobot_nav)/hg_config/hg_global_planner_param.yaml" command="load"/>

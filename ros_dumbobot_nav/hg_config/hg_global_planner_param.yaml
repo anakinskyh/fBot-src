@@ -8,7 +8,7 @@ default_tolerance: 0.0
 visualize_potential: false
 
 #
-use_dijkstra: false
+use_dijkstra: true # false
 
 #
 use_quadratic: true

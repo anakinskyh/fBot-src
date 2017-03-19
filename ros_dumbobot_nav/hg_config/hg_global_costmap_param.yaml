@@ -11,4 +11,4 @@ global_costmap:
      - {name: obstacle_layer,          type: "costmap_2d::VoxelLayer"}
      - {name: inflation_layer,         type: "costmap_2d::InflationLayer"}
 
-     - {name: global_social_layer,   type: "social_navigation_layers::ProxemicLayer"} # add by anakin
+     - {name: social_layer,   type: "social_navigation_layers::ProxemicLayer"} # add by anakin
