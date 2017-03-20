@@ -21,7 +21,7 @@ class path_to_direction():
 
         # self.sub_topic = rospy.get_param('~sub_topic','/cmd_vel')
 
-        self.dev = rospy.get_param('~dev','/dev/arduino')
+        self.dev = rospy.get_param('~dev','/dev/arduino-beam')
         self.baudrate = rospy.get_param('~baudrate',115200)
 
         self.update_rate = rospy.get_param('~update_rate',5.0)
