@@ -1,5 +1,5 @@
 <launch>
-  <arg name='port' default='/dev/arduino'/>
+  <arg name='port' default='/dev/arduino-isel'/>
 
   <node pkg="mpu6050_serial_to_imu" type="mpu6050_serial_to_imu_node" name="mpu6050_serial_to_imu_node" required="true">
     <param name="port" value="$(arg port)"/>

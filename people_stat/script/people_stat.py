@@ -31,6 +31,7 @@ class people_stat():
         self.dur_tw = rospy.get_param('dur_tw',0.1)
 
         self.threshold = rospy.get_param('vel_threshold',1.0)
+        self.holding_time = rospy.get_param('holding_time',5.0)
 
     def publisher(self):
         self.pub = rospy.Publisher(self.people_topic,People,queue_size=10)
@@ -40,6 +41,10 @@ class people_stat():
         self.rate = rospy.Rate(10)
         self.people_prev = {}
 
+        self.last_times = np.array([rospy.Time(0)]*self.max_people)
+        self.last_poses = np.array([Person()]*self.max_people)
+        rospy.loginfo(len(self.last_times))
+        rospy.loginfo(len(self.last_poses))
 
         while not rospy.is_shutdown():
 
@@ -52,7 +57,7 @@ class people_stat():
 
             self.people_now = {}
 
-            for i in range(1,1+self.max_people):
+            for i in range(1,self.max_people):
                 try:
                     child = 'neck_'+str(i)
                     time = rospy.Time(0)
@@ -62,12 +67,11 @@ class people_stat():
                     else:
                         starttf_time = rospy.Time(0)
 
-                    rospy.loginfo('%s %s'%(self.frame_id,child))
+                    # rospy.loginfo('%s %s'%(self.frame_id,child))
 
                     (pose,qt) = self.listener.lookupTransform(self.frame_id,child,starttf_time)
                     # (pose,qt) = self.listener.lookupTransform(self.frame_id,child,rospy.Time(0))
                     (lin,ang) = self.listener.lookupTwist(self.frame_id,child,rospy.Time(0),rospy.Duration(self.dur_tw))
-
 
 
                     person_msg = Person()
@@ -99,8 +103,14 @@ class people_stat():
                     people_cnt += 1
 
 
+                    self.last_times[i] = rospy.Time.now()
+                    self.last_poses[i] = person_msg
+
                 except (tf.LookupException, tf.ConnectivityException,tf.ExtrapolationException):
-                    continue
+                    if rospy.Time.now() - self.last_times[i] >rospy.Duration(self.holding_time):
+                        continue
+
+                    people_msg.people.append(self.last_poses[i])
 
             self.people_prev = self.people_now
 

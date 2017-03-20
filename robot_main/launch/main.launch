@@ -1,6 +1,6 @@
 <launch>
     <include file="$(find robot_main)/launch/core_hw.launch"/>
-    <include file="$(find robot_main)/launch/includes/cmd_filter.launch"/>
+    <include file="$(find robot_main)/launch/includes/vel_smoother.launch"/>
 
     <!-- imu -->
     <include file="$(find mpu6050_serial_to_imu)/launch/demo.launch">

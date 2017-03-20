@@ -1,0 +1,10 @@
+<launch>
+  <node pkg="nodelet" type="nodelet" name="smoother_nodelet_manager"  args="manager"/>
+
+  <node pkg="nodelet" type="nodelet" name="smoother_nodelet"
+    args="load yocs_velocity_smoother/VelocitySmootherNodelet smoother_nodelet_manager">
+    <remap from='/smoother_nodelet/raw_cmd_vel' to='/raw_cmd_vel'/>
+    <remap from='/smoother_nodelet/odometry' to='odom'/>
+    <remap from='/smoother_nodelet/smooth_cmd_vel' to='cmd_vel'/>
+  </node>
+</launch>
