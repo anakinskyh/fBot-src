@@ -1,7 +1,8 @@
 <launch>
+  <arg name='port' default='/dev/arduino'/>
 
   <node pkg="mpu6050_serial_to_imu" type="mpu6050_serial_to_imu_node" name="mpu6050_serial_to_imu_node" required="true">
-    <param name="port" value="/dev/arduino"/>
+    <param name="port" value="$(arg port)"/>
     <remap from='/imu/data' to='/imu_data' />
   </node>
 

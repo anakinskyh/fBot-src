@@ -70,7 +70,7 @@ class path_to_direction():
 
     def get_status(self):
 
-        if self.stop_counter >= 5:
+        if self.stop_counter >= 10:
             self.ts_state = 'stop'
 
         if not self.is_update:
@@ -122,8 +122,8 @@ class path_to_direction():
 
             sum_df = np.array([0.00,0.00,0.00])
 
-            for i in range(0,min(10,len(path) )):
-                lookup_plan_msg.poses.append(path[i])
+            for i in range(min(5,len(path)-1),0,-1 ):
+                # lookup_plan_msg.poses.append(path[i])
                 quaternion = ( \
                     path[i].pose.orientation.x, \
                     path[i].pose.orientation.y, \
@@ -135,7 +135,7 @@ class path_to_direction():
                 df = np_euler - init_np
                 df = (df+3*pi)%(2*pi)-pi
 
-                sum_df+=df
+                sum_df = 0.8*df + 0.2*sum_df
 
             sum_df = sum_df/10
             init_np += sum_df

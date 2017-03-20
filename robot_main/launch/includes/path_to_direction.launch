@@ -1,0 +1,10 @@
+<launch>
+
+  <node pkg="turn_signal" type="path_to_direction.py" name="people_to_direction" output="screen">
+    <param name='update_frequency' value='4'/>
+    <param name='lookup' value='60'/>
+    <param name='turn_threshold' value='0.6'/>
+
+    <param name='dev' value='/dev/arduino-nuke'/>
+  </node>
+</launch>

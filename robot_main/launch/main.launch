@@ -3,7 +3,9 @@
     <include file="$(find robot_main)/launch/includes/cmd_filter.launch"/>
 
     <!-- imu -->
-    <include file="$(find mpu6050_serial_to_imu)/launch/demo.launch"/>
+    <include file="$(find mpu6050_serial_to_imu)/launch/demo.launch">
+      <arg name='port' value='/dev/arduino-isel'/>
+    </include>
 
     <!-- navigation stack -->
     <!-- <include file="$(find ros_dumbobot_nav)/launch/hg_move_base_lab.launch"/> -->
