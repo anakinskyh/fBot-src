@@ -55,6 +55,14 @@ THE SOFTWARE.
     #include "Wire.h"
 #endif
 
+//add by anakin
+#include <Adafruit_Sensor.h>
+#include <Adafruit_HMC5883_U.h>
+
+/* Assign a unique ID to this sensor at the same time */
+Adafruit_HMC5883_Unified mag = Adafruit_HMC5883_Unified(12345);
+//anakin end
+
 // class default I2C address is 0x68
 // specific I2C addresses may be passed as a parameter here
 // AD0 low = 0x68 (default for SparkFun breakout and InvenSense evaluation board)
@@ -103,7 +111,7 @@ float euler[3];         // [psi, theta, phi]    Euler angle container
 float ypr[3];           // [yaw, pitch, roll]   yaw/pitch/roll container and gravity vector
 
 // packet structure for InvenSense teapot demo
-uint8_t teapotPacket[28] = { '$', 0x03, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 0x00, 0x00, '\r', '\n' };
+uint8_t teapotPacket[40] = { '$', 0x03, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 0x00, 0x00, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, '\r', '\n' };
 
 
 
@@ -193,6 +201,9 @@ void setup() {
 
     // configure LED for output
     pinMode(LED_PIN, OUTPUT);
+
+    sensor_t sensor;
+    mag.getSensor(&sensor);
 }
 
 
@@ -273,9 +284,31 @@ void loop() {
         int16_t temperature = mpu.getTemperature();
         teapotPacket[22] = temperature >> 8;
         teapotPacket[23] = temperature & 0xFF;
-        Serial.write(teapotPacket, 28);
+        //mag
+        sensors_event_t event; 
+        mag.getEvent(&event);
+        uint8_t* magX = (uint8_t*)(&event.magnetic.x); 
+        teapotPacket[26] = magX[0];
+        teapotPacket[27] = magX[1];
+        teapotPacket[28] = magX[2];
+        teapotPacket[29] = magX[3];
+        uint8_t* magY = (uint8_t*)(&event.magnetic.y); 
+        teapotPacket[30] = magY[0];
+        teapotPacket[31] = magY[1];
+        teapotPacket[32] = magY[2];
+        teapotPacket[33] = magY[3];
+        uint8_t* magZ = (uint8_t*)(&event.magnetic.z); 
+        teapotPacket[34] = magZ[0];
+        teapotPacket[35] = magZ[1];
+        teapotPacket[36] = magZ[2];
+        teapotPacket[37] = magZ[3];
+//        Serial.print(event.magnetic.x);
+//        Serial.print(event.magnetic.y);
+//        Serial.print(event.magnetic.z);
+        
+        Serial.write(teapotPacket, 40);
         teapotPacket[25]++; // packetCount, loops at 0xFF on purpose
-
+        
         // blink LED to indicate activity
         blinkState = !blinkState;
         digitalWrite(LED_PIN, blinkState);

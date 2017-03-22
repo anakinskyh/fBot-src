@@ -3,6 +3,7 @@
 #include <serial/serial.h>
 #include <sensor_msgs/Imu.h>
 #include <sensor_msgs/Temperature.h>
+#include <sensor_msgs/MagneticField.h>
 #include <std_msgs/String.h>
 #include <std_srvs/Empty.h>
 #include <string>
@@ -54,6 +55,9 @@ int main(int argc, char** argv)
   ros::NodeHandle nh("imu");
   ros::Publisher imu_pub = nh.advertise<sensor_msgs::Imu>("data", 50);
   ros::Publisher imu_temperature_pub = nh.advertise<sensor_msgs::Temperature>("temperature", 50);
+  // add by anakin
+  ros::Publisher mag_pub = nh.advertise<sensor_msgs::MagneticField>("mag", 50);
+
   ros::ServiceServer service = nh.advertiseService("set_zero_orientation", set_zero_orientation);
 
   ros::Rate r(200); // 200 hz
@@ -74,6 +78,9 @@ int main(int argc, char** argv)
 
   sensor_msgs::Temperature temperature_msg;
   temperature_msg.variance = 0;
+
+  sensor_msgs::MagneticField mag_msg;
+  // mag_msg.variance =
 
   static tf::TransformBroadcaster tf_br;
   tf::Transform transform;
@@ -158,6 +165,25 @@ int main(int argc, char** argv)
                 uint8_t received_message_number = input[data_packet_start + 25];
                 ROS_DEBUG("received message number: %i", received_message_number);
 
+                // get mag
+                union{
+                  float f;
+                  unsigned char b[4];
+                } umx,umy,umz;
+                umx.b[0] = (unsigned char)input[data_packet_start +26];
+                umx.b[1] = (unsigned char)input[data_packet_start +27];
+                umx.b[2] = (unsigned char)input[data_packet_start +28];
+                umx.b[3] = (unsigned char)input[data_packet_start +29];
+                umy.b[0] = (unsigned char)input[data_packet_start +30];
+                umy.b[1] = (unsigned char)input[data_packet_start +31];
+                umy.b[2] = (unsigned char)input[data_packet_start +32];
+                umy.b[3] = (unsigned char)input[data_packet_start +33];
+                umz.b[0] = (unsigned char)input[data_packet_start +34];
+                umz.b[1] = (unsigned char)input[data_packet_start +35];
+                umz.b[2] = (unsigned char)input[data_packet_start +36];
+                umz.b[3] = (unsigned char)input[data_packet_start +37];
+                // ROS_INFO("%f %f %f",umx.f,umy.f,umz.f);
+
                 if (received_message) // can only check for continuous numbers if already received at least one packet
                 {
                   uint8_t message_distance = received_message_number - last_received_message_number;
@@ -197,6 +223,15 @@ int main(int argc, char** argv)
                 temperature_msg.temperature = temperature_in_C;
 
                 imu_temperature_pub.publish(temperature_msg);
+
+                // publish mag message
+                mag_msg.header.stamp = measurement_time;
+                mag_msg.header.frame_id = frame_id;
+                mag_msg.magnetic_field.x = umx.f;
+                mag_msg.magnetic_field.y = umy.f;
+                mag_msg.magnetic_field.z = umz.f;
+
+                mag_pub.publish(mag_msg);
 
                 // publish tf transform
                 if (broadcast_tf)

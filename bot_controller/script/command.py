@@ -76,6 +76,9 @@ class command():
                 name = raw_input('name : ')
                 pose = raw_input('x y z x y z w : ')
                 pose = str.split(pose)
+
+            # elif sel=='g':
+
             else:
                 arr_pose = menu1[sel][1]
                 # pose.position

@@ -19,4 +19,4 @@ local_costmap:
     - {name: inflation_layer,     type: "costmap_2d::InflationLayer"}
     # - {name: human_layer,         type: "costmap_2d::VoxelLayer"} # remove by anakin
     - {name: social_layer,   type: "social_navigation_layers::ProxemicLayer"} # add by anakin
-    - {name: passing_layer,   type: "social_navigation_layers::PassingLayer"} # add by anakin
+    # - {name: passing_layer,   type: "social_navigation_layers::PassingLayer"} # add by anakin

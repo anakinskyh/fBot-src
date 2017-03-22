@@ -34,13 +34,13 @@ class goal_setter():
         self.client.send_goal(mb_goal)
 
         if wait:
-            rospy.loginfo('logx')
+            # rospy.loginfo('logx')
             self.client.wait_for_result()
 
             self.status = self.client.get_state()
 
             if self.debug_mode:
-                rospy.loginfo('STATUS : '+str( actionlib.SimpleGoalState.ACTIVE ))
+                    rospy.loginfo('STATUS : '+str( actionlib.SimpleGoalState.ACTIVE ))
 
             return self.status
 
@@ -50,12 +50,15 @@ class goal_setter():
     def follow_path(self,path):
         # for i_goal in path:
 
-        rospy.loginfo('follow path done')
+        # rospy.loginfo('follow path done')
         for pose in path:
             status = self.move_to(pose)
             while not rospy.is_shutdown() and self.client.get_state()!=3:
                 rospy.loginfo(self.client.get_state())
                 rospy.sleep(0.2)
+
+    # def get_status(self):
+
 
 if __name__ == '__main__':
     rospy.init_node('simple_goal_setter')

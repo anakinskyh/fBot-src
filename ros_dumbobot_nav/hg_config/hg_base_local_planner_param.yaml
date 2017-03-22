@@ -1,11 +1,11 @@
 TrajectoryPlannerROS:
-  acc_lim_x: 0.1
+  acc_lim_x: 0.11
   # 1 m/s^2
   acc_lim_theta: 1.5 #0.05 # \2.1
   #1.5 #2
 
 
-  max_vel_x: 0.7
+  max_vel_x: 0.3
   # m/s
   min_vel_x: -0.1 # anakin 0.1
   # m/s
@@ -49,7 +49,7 @@ TrajectoryPlannerROS:
   # latch_xy_goal_tolerance: false
 
   #The amount of time to forward-simulate trajectories in seconds
-  sim_time: 2.5 # modify by anakin 3.0(old)
+  sim_time: 3.0 # modify by anakin 3.0(old)
   #1
   #The step size, in meters, to take between points on a given trajectory
   sim_granularity: 0.025
