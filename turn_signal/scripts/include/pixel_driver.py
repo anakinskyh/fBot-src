@@ -28,6 +28,7 @@ class pixel_driver():
             # self.ser.open()
             self.ser.write(msg_out)
             time.sleep(0.05)
+            # rospy.loginfo('write success%s'%(msg_out))
         except :
             print 'unable to connect to port %s',self.dev
             rospy.loginfo('unable to connect to port %s',self.dev)
@@ -70,7 +71,7 @@ class pixel_driver():
 
         # print cmd
         self.write_serial(cmd)
-            
+
         # time.sleep(0.1)
 
 def f(x,y):
@@ -81,21 +82,19 @@ if __name__ == '__main__':
     pd.reset_all()
     pd.set_by_list(ledlist=[0,2,5],color=[40,0,40,1])
     pd.show()
-    # time.sleep(0.5)   
+    # time.sleep(0.5)
     a = np.array([(50,10,0,1),(0,10,50,1)])
     pd.set_by_colorlist(a,start = 10)
     pd.show()
     # time.sleep(1)
     b = np.fromfunction(f,(40,4),dtype=int)
-    
+
     # print b
     for i in range(0,100):
         time.sleep(0.01)
         pd.set_by_colorlist(b)
-        
+
         # time.sleep(2)
         pd.show()
 
         b = np.roll(b,-1,axis=0)
-
-

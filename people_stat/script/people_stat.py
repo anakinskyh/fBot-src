@@ -5,6 +5,8 @@ from nav_msgs.msg import Odometry as odom
 import tf
 import numpy as np
 
+zero = 1e-10
+
 class people_stat():
     def __init__(self):
         self.get_param()
@@ -31,7 +33,7 @@ class people_stat():
         self.dur_tw = rospy.get_param('dur_tw',0.1)
 
         self.threshold = rospy.get_param('vel_threshold',1.0)
-        self.holding_time = rospy.get_param('holding_time',5.0)
+        self.holding_time = rospy.get_param('holding_time',10.0)
 
     def publisher(self):
         self.pub = rospy.Publisher(self.people_topic,People,queue_size=10)
@@ -43,6 +45,7 @@ class people_stat():
 
         self.last_times = np.array([rospy.Time(0)]*self.max_people)
         self.last_poses = np.array([Person()]*self.max_people)
+        self.cam_poses = np.array([[0.00,0.00,0.00]]*self.max_people)
         rospy.loginfo(len(self.last_times))
         rospy.loginfo(len(self.last_poses))
 
@@ -69,15 +72,34 @@ class people_stat():
 
                     # rospy.loginfo('%s %s'%(self.frame_id,child))
 
+                    # (pose,qt) = self.listener.lookupTransform(self.frame_id,child,starttf_time)
+                    (cam_pose,cam_qt) = self.listener.lookupTransform('openni_depth_frame',child,starttf_time)
+
+                    miss = (abs(cam_pose[0]-self.cam_poses[i][0])<zero) or (abs(cam_pose[1]-self.cam_poses[i][1])<zero) \
+                        or (abs(cam_pose[2]-self.cam_poses[i][2])<zero)
+
+                    if miss:
+                        # rospy.loginfo('{} {} {}'.format(child,cam_pose-self.cam_poses[i],zero))
+                        if rospy.Time.now() - self.last_times[i] >rospy.Duration(self.holding_time):
+                            self.cam_poses[i] = cam_pose
+                            continue
+
+                        people_msg.people.append(self.last_poses[i])
+                        self.cam_poses[i] = cam_pose
+                        continue
+                    else:
+                        self.cam_poses[i] = cam_pose
+                        # rospy.loginfo('hi')
+                    rospy.loginfo('----run {} {} {}'.format(child,cam_pose,self.cam_poses[i]))
+
                     (pose,qt) = self.listener.lookupTransform(self.frame_id,child,starttf_time)
-                    # (pose,qt) = self.listener.lookupTransform(self.frame_id,child,rospy.Time(0))
                     (lin,ang) = self.listener.lookupTwist(self.frame_id,child,rospy.Time(0),rospy.Duration(self.dur_tw))
 
+                    # rospy.loginfo('append')
 
                     person_msg = Person()
                     person_msg.name  = 'vel_%s'%(str(i)) #'vel_%s' % (child)
                     (person_msg.position.x,person_msg.position.y,person_msg.position.z) = pose
-
 
                     # velocity is too sensitive
                     # if np.linalg.norm(np.array(lin)-0) >= self.minimum_vel:
@@ -107,10 +129,13 @@ class people_stat():
                     self.last_poses[i] = person_msg
 
                 except (tf.LookupException, tf.ConnectivityException,tf.ExtrapolationException):
+                    # rospy.loginfo('err')
                     if rospy.Time.now() - self.last_times[i] >rospy.Duration(self.holding_time):
                         continue
 
                     people_msg.people.append(self.last_poses[i])
+
+
 
             self.people_prev = self.people_now
 
@@ -120,6 +145,8 @@ class people_stat():
             # rospy.loginfo('publish di wa')
             # rospy.loginfo(people_msg)
             self.prev_people = people_msg
+
+            # rospy.loginfo('wat')  
 
             self.pub.publish(people_msg)
 

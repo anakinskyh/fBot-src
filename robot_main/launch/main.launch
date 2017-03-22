@@ -9,4 +9,10 @@
 
     <!-- navigation stack -->
     <!-- <include file="$(find ros_dumbobot_nav)/launch/hg_move_base_lab.launch"/> -->
+
+    <!-- openni tracker -->
+    <include file="$(find robot_main)/launch/includes/openni_tracker.launch"/>
+
+    <!-- led -->
+    <!-- <include file="$(find robot_main)/launch/includes/path_to_direction.launch"/> -->
 </launch>

@@ -85,6 +85,8 @@ void decode_and_set(char* cmd){
   //char* token = (char *)malloc(20*sizeof(char));
   char* token;
   int incmd,left,right,r,g,b,a;
+
+      Serial.write(cmd);
       
       token = strtok(cmd,sep);
       incmd = atoi(token);
@@ -155,7 +157,7 @@ void setup(){
   Serial.begin(115200);
   
   //set_color();
-  
+  Serial.write("start");
   strip.setPixelColor(0,10,20,30,1.0);
   strip.show();
 }
