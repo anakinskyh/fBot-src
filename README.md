@@ -6,13 +6,9 @@ Apply udev rule by
 
 `sudo cp <src>/fBot-src/util/udev.rule.d/* /etc/udev/rules.d/`
 
-Apply `mpu6050_serial_to_imu/arduino/MPU6050/MPU6050.ino` and
+Apply `mpu6050_serial_to_imu/arduino/MPU6050/MPU6050.ino` and `util/mystrip/mystrip.ino` to arduino
 
-`util/mystrip/mystrip.ino` to arduino
-
-Set port to launch file `robot_main/launch/includes/path_to_direction.launch` and
-
-`robot_main/launch/includes/imu_filter.launch`
+Set port to launch file `robot_main/launch/includes/path_to_direction.launch` and `robot_main/launch/includes/imu_filter.launch`
 
 (Optional) Write udev rules for new arduino
 
