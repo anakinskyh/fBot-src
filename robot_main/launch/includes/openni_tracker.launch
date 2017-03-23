@@ -5,8 +5,8 @@
   <!-- <node pkg="openni_tracker" type="openni_tracker" name="openni_tracker" output="screen">
   </node> -->
 
-  <node pkg="people_stat" type="people_stat.py" name="people_stat" output="screen">
+  <!-- <node pkg="people_stat" type="people_stat.py" name="people_stat" output="screen">
     <param name="holding_time" value='10.0'/>
-  </node>
+  </node> -->
 
 </launch>

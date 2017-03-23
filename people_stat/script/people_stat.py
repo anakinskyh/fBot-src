@@ -6,7 +6,6 @@ import tf
 import numpy as np
 
 zero = 1e-10
-
 class people_stat():
     def __init__(self):
         self.get_param()
@@ -27,9 +26,9 @@ class people_stat():
         self.cam_frame = rospy.get_param('cam_frame','openni_depth_frame')
         self.map_frame = rospy.get_param('map_frame','map')
         self.people_topic = rospy.get_param('people_topic','people')
-        self.change = rospy.get_param('change',0.05)
+        self.change = rospy.get_param('change',0.005)
         self.dur_tf = rospy.get_param('dur_tf',1.0)
-        self.dur_tw = rospy.get_param('dur_tw',0.1)
+        self.dur_tw = rospy.get_param('dur_tw',0.2)
 
         self.threshold = rospy.get_param('vel_threshold',1.0)
         self.holding_time = rospy.get_param('holding_time',10.0)
@@ -92,7 +91,16 @@ class people_stat():
                     # rospy.loginfo('----run {} {} {}'.format(child,cam_pose,self.cam_poses[i]))
 
                     (pose,qt) = self.listener.lookupTransform(self.map_frame,child,starttf_time)
-                    (lin,ang) = self.listener.lookupTwist(self.map_frame,child,rospy.Time(0),rospy.Duration(self.dur_tw))
+                    # (lin,ang) = self.listener.lookupTwist(self.map_frame,child,rospy.Time(0),rospy.Duration(self.dur_tw))
+                    (lin,ang) = self.listener.lookupTwist(child,self.map_frame,rospy.Time(0),rospy.Duration(self.dur_tw))
+
+                    rospy.loginfo('{}'.format(pose))
+
+                    # nlin = np.linalg.norm(np.array(lin)-0)
+                    # nang = np.linalg.norm(np.array(ang)-0)
+                    #
+                    # if nlin > 5:
+                    #     rospy.loginfo('{}\t{}'.format(nlin,nang))
 
                     # make person_msg
                     person_msg = Person()
