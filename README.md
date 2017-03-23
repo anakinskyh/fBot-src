@@ -2,40 +2,50 @@
 May need to remove some package before first compile, then restore those package and compile again.
 ## Usage
 ### Preparation **
-apply udev rule by
+Apply udev rule by
 
 `sudo cp <src>/fBot-src/util/udev.rule.d/* /etc/udev/rules.d/`
 
-### Run Hardware
-All command
+Apply `mpu6050_serial_to_imu/arduino/MPU6050/MPU6050.ino` and
 
-`roslaunch robot_main core_hw.launch`
+`util/mystrip/mystrip.ino` to arduino
 
-`roslaunch robot_main cmd_filter.launch`
+Set port to launch file `robot_main/launch/includes/path_to_direction.launch` and
 
-Firstly, You need to run
-`roslaunch robot_main core_hw.launch`
-By the command You stated *create, hokuyo, joystick, tf_config*.
+`robot_main/launch/includes/imu_filter.launch`
 
-*joystick* publish raw_cmd_vel.
+(Optional) Write udev rules for new arduino
 
-*tf_config* publish many fake tf please check before.
+### Run Robot
 
-Secondly, to make robot can walk you need to run
-`roslaunch robot_main cmd_filter.launch`, This command will convert raw_cmd_vel to cmd_vel
+Start Robot
 
-### Run LED
-Run `roslaunch robot_main running_avg_led.launch`
+`roscore`
+
+Run command
+
+`roslaunch robot_main main.launch`
+
+To start *create, hokuyo, joystick, tf_config, openni_tracker, people_stat, imu, turn_signal*
+
+You may need to run
+
+`roslaunch ros_dumbobot_nav hg_move_base_lab.launch`
 
 ### Run navigation stack
-You need to run `roslaunch ros_dumbobot_nav hg_move_base_lab.launch`.
-If you need to monitor on other machine you can run
+
+To start *navigation stack*
+
+To monitor you need to run
+
 `rosrun rviz rviz -d $(rospack find ros_dumbobot_nav)/rviz/my_ros_rviz.rviz`
 
-And If you need to run human detection module you need to connect to kinect and run `roslaunch robot_main openni_tracker.launch`
+Controller
 
-That will run *openni_tracker and people_stat*
+`rosrun bot_controller command.py`
 
-### Sync source code
+(Optional) Suggest to ssh to run on mobile
+
+### Sync source code (Optional)
 To sync code with other machine
 `rsync -av fBot-src username@host:fBot-src`
