@@ -94,7 +94,7 @@ class path_to_direction():
 
             if self.ts_state != self.prev_ts_state:
                 rospy.loginfo('status : {}, angle : {}'.format(self.ts_state,self.angle))
-
+            rospy.loginfo('status : {}, angle : {}'.format(self.ts_state,self.angle))
             self.driver.change_state(self.ts_state,0.00,0.00)
 
     def get_status(self):

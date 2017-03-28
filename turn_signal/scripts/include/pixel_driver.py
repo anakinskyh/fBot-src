@@ -14,10 +14,14 @@ class pixel_driver():
         try:
             self.ser = serial.Serial(self.dev,self.boudRate,timeout=10)
             time.sleep(3)
+            rospy.loginfo('connected to %s',self.dev)
+            self.set_range(color=[0,0,20,1])
+            self.show()
         except :
             print 'unable to connect to port %s',self.dev
             rospy.loginfo('unable to connect to port %s',self.dev)
             pass
+
 
     def write_serial(self,msg):
         msg_out = msg+'\n'
@@ -27,8 +31,8 @@ class pixel_driver():
             self.ser = serial.Serial(self.dev,self.boudRate,timeout=10)
             # self.ser.open()
             self.ser.write(msg_out)
-            time.sleep(0.05)
-            rospy.loginfo('write success%s'%(msg_out))
+            time.sleep(0.1)
+            rospy.loginfo('write to %s %d'%(self.dev,self.boudRate))
         except :
             print 'unable to connect to port %s',self.dev
             rospy.loginfo('unable to connect to port %s',self.dev)
@@ -36,6 +40,8 @@ class pixel_driver():
 
     def show(self):
         self.write_serial('0')
+        time.sleep(0.1)
+        # rospy.loginfo('show')
 
     def reset_range(self,left = 0,right = 40):
         cmd = '1 %i %i 0 0 0 1'%(left,right)
@@ -78,23 +84,26 @@ def f(x,y):
     return 0
 
 if __name__ == '__main__':
-    pd = pixel_driver(dev = '/dev/arduino',boudRate = 115200)
+    rospy.init_node('pixel_driver')
+    pd = pixel_driver(dev = '/dev/arduino-nuke',boudRate = 115200)
     pd.reset_all()
-    pd.set_by_list(ledlist=[0,2,5],color=[40,0,40,1])
     pd.show()
-    # time.sleep(0.5)
+    time.sleep(2)
+    pd.set_by_list(ledlist=[0,2,5],color=[0,0,40,1])
+    pd.show()
+    time.sleep(0.5)
     a = np.array([(50,10,0,1),(0,10,50,1)])
-    pd.set_by_colorlist(a,start = 10)
+    pd.set_by_colorlist(a,start = 0)
     pd.show()
-    # time.sleep(1)
-    b = np.fromfunction(f,(40,4),dtype=int)
-
-    # print b
-    for i in range(0,100):
-        time.sleep(0.01)
-        pd.set_by_colorlist(b)
-
-        # time.sleep(2)
-        pd.show()
-
-        b = np.roll(b,-1,axis=0)
+    # # time.sleep(1)
+    # b = np.fromfunction(f,(40,4),dtype=int)
+    #
+    # # print b
+    # for i in range(0,100):
+    #     time.sleep(0.01)
+    #     pd.set_by_colorlist(b)
+    #
+    #     # time.sleep(2)
+    #     pd.show()
+    #
+    #     b = np.roll(b,-1,axis=0)

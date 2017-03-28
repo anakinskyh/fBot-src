@@ -252,6 +252,8 @@ void setup()
 {
   Wire.begin();
   Serial.begin(115200);
+
+  Serial.write("start program");
   
   // Set up the interrupt pin, its set as active high, push-pull
   pinMode(intPin, INPUT);
@@ -342,6 +344,7 @@ mag.getSensor(&sensor);
 
 void loop()
 {  
+//  Serial.write("start loop");
   delay(1);
    // If data ready bit set, all data registers have new data
   if(readByte(MPU6050_ADDRESS, INT_STATUS) & 0x01) {  // check if data ready interrupt
