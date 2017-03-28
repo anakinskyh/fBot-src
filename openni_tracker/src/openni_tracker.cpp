@@ -9,7 +9,12 @@
 #include <XnCodecIDs.h>
 #include <XnCppWrapper.h>
 
+#include <math.h>
+
 using std::string;
+
+//add by anakin
+int magic = 1000;
 
 xn::Context        g_Context;
 xn::DepthGenerator g_DepthGenerator;
@@ -89,6 +94,20 @@ void publishTransform(XnUserID const& user, XnSkeletonJoint const& joint, string
     change_frame.setRotation(frame_rotation);
 
     transform = change_frame * transform;
+
+		if(magic > 0){
+			double ox = (double)transform.getOrigin().x();
+			double oy = (double)transform.getOrigin().y();
+			double oz = (double)transform.getOrigin().z();
+
+			ox = floor(ox*magic)/magic;
+			oy = floor(oy*magic)/magic;
+			oz = floor(oz*magic)/magic;
+
+			transform.setOrigin(tf::Vector3(ox, oy, oz));
+		}
+		// ROS_INFO("%f %f %f",ox,oy,oz);
+
 
     br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), frame_id, child_frame_no));
 }
@@ -189,6 +208,7 @@ int main(int argc, char **argv) {
         ros::NodeHandle pnh("~");
         string frame_id("openni_depth_frame");
         pnh.getParam("camera_frame_id", frame_id);
+				pnh.getParam("magic",magic);
 
 	while (ros::ok()) {
 		g_Context.WaitAndUpdateAll();

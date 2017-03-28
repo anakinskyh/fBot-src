@@ -9,7 +9,6 @@
 #include <string>
 #include <tf/transform_broadcaster.h>
 #include <tf/transform_datatypes.h>
-#include <math.h>
 
 bool zero_orientation_set = false;
 
@@ -102,35 +101,26 @@ int main(int argc, char** argv)
           read = ser.read(ser.available());
           ROS_DEBUG("read %i new characters from serial port, adding to %i characters of old input.", (int)read.size(), (int)input.size());
           input += read;
-          while (input.length() >= 62) // while there might be a complete package in input
+          while (input.length() >= 28) // while there might be a complete package in input
           {
             //parse for data packets
             data_packet_start = input.find("$\x03");
             if (data_packet_start != std::string::npos)
             {
               ROS_DEBUG("found possible start of data packet at position %d", data_packet_start);
-              if ((input.length() >= data_packet_start + 62) && (input.compare(data_packet_start + 60, 2, "\n\r")))  //check if positions 26,27 exist, then test values
+              if ((input.length() >= data_packet_start + 28) && (input.compare(data_packet_start + 26, 2, "\n\r")))  //check if positions 26,27 exist, then test values
               {
                 ROS_DEBUG("seems to be a real data package: long enough and found end characters");
                 // get quaternion values
-                // int16_t w = (((0xff &(char)input[data_packet_start + 2]) << 8) | 0xff &(char)input[data_packet_start + 3]);
-                // int16_t x = (((0xff &(char)input[data_packet_start + 4]) << 8) | 0xff &(char)input[data_packet_start + 5]);
-                // int16_t y = (((0xff &(char)input[data_packet_start + 6]) << 8) | 0xff &(char)input[data_packet_start + 7]);
-                // int16_t z = (((0xff &(char)input[data_packet_start + 8]) << 8) | 0xff &(char)input[data_packet_start + 9]);
-                float wf,xf,yf,zf;
-                memcpy(&wf,&input[data_packet_start+2],4);
-                memcpy(&xf,&input[data_packet_start+6],4);
-                memcpy(&yf,&input[data_packet_start+10],4);
-                memcpy(&zf,&input[data_packet_start+14],4);
+                int16_t w = (((0xff &(char)input[data_packet_start + 2]) << 8) | 0xff &(char)input[data_packet_start + 3]);
+                int16_t x = (((0xff &(char)input[data_packet_start + 4]) << 8) | 0xff &(char)input[data_packet_start + 5]);
+                int16_t y = (((0xff &(char)input[data_packet_start + 6]) << 8) | 0xff &(char)input[data_packet_start + 7]);
+                int16_t z = (((0xff &(char)input[data_packet_start + 8]) << 8) | 0xff &(char)input[data_packet_start + 9]);
 
-                if(isnan(xf)){
-                  ROS_INFO("nan %f",xf);
-                }
-
-                // double wf = w/16384.0;
-                // double xf = x/16384.0;
-                // double yf = y/16384.0;
-                // double zf = z/16384.0;
+                double wf = w/16384.0;
+                double xf = x/16384.0;
+                double yf = y/16384.0;
+                double zf = z/16384.0;
 
                 tf::Quaternion orientation(xf, yf, zf, wf);
 
@@ -145,42 +135,30 @@ int main(int argc, char** argv)
                 differential_rotation = zero_orientation.inverse() * orientation;
 
                 // get gyro values
-                // int16_t gx = (((0xff &(char)input[data_packet_start + 10]) << 8) | 0xff &(char)input[data_packet_start + 11]);
-                // int16_t gy = (((0xff &(char)input[data_packet_start + 12]) << 8) | 0xff &(char)input[data_packet_start + 13]);
-                // int16_t gz = (((0xff &(char)input[data_packet_start + 14]) << 8) | 0xff &(char)input[data_packet_start + 15]);
+                int16_t gx = (((0xff &(char)input[data_packet_start + 10]) << 8) | 0xff &(char)input[data_packet_start + 11]);
+                int16_t gy = (((0xff &(char)input[data_packet_start + 12]) << 8) | 0xff &(char)input[data_packet_start + 13]);
+                int16_t gz = (((0xff &(char)input[data_packet_start + 14]) << 8) | 0xff &(char)input[data_packet_start + 15]);
                 // calculate rotational velocities in rad/s
                 // without the last factor the velocities were too small
                 // http://www.i2cdevlib.com/forums/topic/106-get-angular-velocity-from-mpu-6050/
                 // FIFO frequency 100 Hz -> factor 10 ?
                 // seems 25 is the right factor
                 //TODO: check / test if rotational velocities are correct
-                float gxf,gyf,gzf;
-                memcpy(&gxf,&input[data_packet_start+18],4);
-                memcpy(&gyf,&input[data_packet_start+22],4);
-                memcpy(&gzf,&input[data_packet_start+26],4);
-
-                // double gxf = gx * (4000.0/65536.0) * (M_PI/180.0) * 25.0;
-                // double gyf = gy * (4000.0/65536.0) * (M_PI/180.0) * 25.0;
-                // double gzf = gz * (4000.0/65536.0) * (M_PI/180.0) * 25.0;
+                double gxf = gx * (4000.0/65536.0) * (M_PI/180.0) * 25.0;
+                double gyf = gy * (4000.0/65536.0) * (M_PI/180.0) * 25.0;
+                double gzf = gz * (4000.0/65536.0) * (M_PI/180.0) * 25.0;
 
                 // get acelerometer values
-                // int16_t ax = (((0xff &(char)input[data_packet_start + 16]) << 8) | 0xff &(char)input[data_packet_start + 17]);
-                // int16_t ay = (((0xff &(char)input[data_packet_start + 18]) << 8) | 0xff &(char)input[data_packet_start + 19]);
-                // int16_t az = (((0xff &(char)input[data_packet_start + 20]) << 8) | 0xff &(char)input[data_packet_start + 21]);
-
-                float  axf,ayf,azf;
-                memcpy(&axf,&input[data_packet_start+30],4);
-                memcpy(&ayf,&input[data_packet_start+34],4);
-                memcpy(&azf,&input[data_packet_start+38],4);
+                int16_t ax = (((0xff &(char)input[data_packet_start + 16]) << 8) | 0xff &(char)input[data_packet_start + 17]);
+                int16_t ay = (((0xff &(char)input[data_packet_start + 18]) << 8) | 0xff &(char)input[data_packet_start + 19]);
+                int16_t az = (((0xff &(char)input[data_packet_start + 20]) << 8) | 0xff &(char)input[data_packet_start + 21]);
                 // calculate accelerations in m/s²
-                // double axf = ax * (8.0 / 65536.0) * 9.81;
-                // double ayf = ay * (8.0 / 65536.0) * 9.81;
-                // double azf = az * (8.0 / 65536.0) * 9.81;
+                double axf = ax * (8.0 / 65536.0) * 9.81;
+                double ayf = ay * (8.0 / 65536.0) * 9.81;
+                double azf = az * (8.0 / 65536.0) * 9.81;
 
                 // get temperature
-                // int16_t temperature = (((0xff &(char)input[data_packet_start + 22]) << 8) | 0xff &(char)input[data_packet_start + 23]);
-                float temperature;
-                memcpy(&temperature,&input[data_packet_start+42],4);
+                int16_t temperature = (((0xff &(char)input[data_packet_start + 22]) << 8) | 0xff &(char)input[data_packet_start + 23]);
                 double temperature_in_C = (temperature / 340.0 ) + 36.53;
                 ROS_DEBUG_STREAM("Temperature [in C] " << temperature_in_C);
 
@@ -192,21 +170,19 @@ int main(int argc, char** argv)
                   float f;
                   unsigned char b[4];
                 } umx,umy,umz;
-                umx.b[0] = (unsigned char)input[data_packet_start +48];
-                umx.b[1] = (unsigned char)input[data_packet_start +49];
-                umx.b[2] = (unsigned char)input[data_packet_start +50];
-                umx.b[3] = (unsigned char)input[data_packet_start +51];
-
-                umy.b[0] = (unsigned char)input[data_packet_start +52];
-                umy.b[1] = (unsigned char)input[data_packet_start +53];
-                umy.b[2] = (unsigned char)input[data_packet_start +54];
-                umy.b[3] = (unsigned char)input[data_packet_start +55];
-
-                umz.b[0] = (unsigned char)input[data_packet_start +56];
-                umz.b[1] = (unsigned char)input[data_packet_start +57];
-                umz.b[2] = (unsigned char)input[data_packet_start +58];
-                umz.b[3] = (unsigned char)input[data_packet_start +59];
-                ROS_INFO("%f %f %f",umx.f,umy.f,umz.f);
+                umx.b[0] = (unsigned char)input[data_packet_start +26];
+                umx.b[1] = (unsigned char)input[data_packet_start +27];
+                umx.b[2] = (unsigned char)input[data_packet_start +28];
+                umx.b[3] = (unsigned char)input[data_packet_start +29];
+                umy.b[0] = (unsigned char)input[data_packet_start +30];
+                umy.b[1] = (unsigned char)input[data_packet_start +31];
+                umy.b[2] = (unsigned char)input[data_packet_start +32];
+                umy.b[3] = (unsigned char)input[data_packet_start +33];
+                umz.b[0] = (unsigned char)input[data_packet_start +34];
+                umz.b[1] = (unsigned char)input[data_packet_start +35];
+                umz.b[2] = (unsigned char)input[data_packet_start +36];
+                umz.b[3] = (unsigned char)input[data_packet_start +37];
+                // ROS_INFO("%f %f %f",umx.f,umy.f,umz.f);
 
                 if (received_message) // can only check for continuous numbers if already received at least one packet
                 {

@@ -60,172 +60,6 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        base_footprint:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        base_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        camera_depth_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        camera_depth_optical_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        camera_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        camera_rgb_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        camera_rgb_optical_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        caster_back_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        caster_front_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        cliff_sensor_front_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        cliff_sensor_left_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        cliff_sensor_right_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        gyro_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        mount_asus_xtion_pro_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        plate_bottom_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        plate_middle_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        plate_top_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        pole_bottom_0_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        pole_bottom_1_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        pole_bottom_2_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        pole_bottom_3_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        pole_bottom_4_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        pole_bottom_5_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        pole_kinect_0_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        pole_kinect_1_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        pole_middle_0_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        pole_middle_1_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        pole_middle_2_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        pole_middle_3_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        pole_top_0_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        pole_top_1_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        pole_top_2_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        pole_top_3_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        wheel_left_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        wheel_right_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
       Name: RobotModel
       Robot Description: robot_description
       TF Prefix: ""
@@ -239,81 +73,199 @@ Visualization Manager:
         All Enabled: false
         base_footprint:
           Value: true
-        base_laser_link:
-          Value: true
         base_link:
-          Value: true
-        camera_depth_frame:
-          Value: true
-        camera_depth_optical_frame:
           Value: true
         camera_link:
           Value: true
-        camera_rgb_frame:
+        head_1:
           Value: true
-        camera_rgb_optical_frame:
+        head_2:
           Value: true
-        caster_back_link:
+        head_3:
           Value: true
-        caster_front_link:
+        head_5:
           Value: true
-        cliff_sensor_front_link:
+        head_6:
           Value: true
-        cliff_sensor_left_link:
+        head_9:
           Value: true
-        cliff_sensor_right_link:
+        imu_link:
           Value: true
-        gyro_link:
+        laser:
+          Value: true
+        left_elbow_1:
+          Value: true
+        left_elbow_2:
+          Value: true
+        left_elbow_3:
+          Value: true
+        left_elbow_5:
+          Value: true
+        left_elbow_6:
+          Value: true
+        left_elbow_9:
+          Value: true
+        left_foot_1:
+          Value: true
+        left_foot_2:
+          Value: true
+        left_foot_3:
+          Value: true
+        left_foot_5:
+          Value: true
+        left_foot_6:
+          Value: true
+        left_foot_9:
+          Value: true
+        left_hand_1:
+          Value: true
+        left_hand_2:
+          Value: true
+        left_hand_3:
+          Value: true
+        left_hand_5:
+          Value: true
+        left_hand_6:
+          Value: true
+        left_hand_9:
+          Value: true
+        left_hip_1:
+          Value: true
+        left_hip_2:
+          Value: true
+        left_hip_3:
+          Value: true
+        left_hip_5:
+          Value: true
+        left_hip_6:
+          Value: true
+        left_hip_9:
+          Value: true
+        left_knee_1:
+          Value: true
+        left_knee_2:
+          Value: true
+        left_knee_3:
+          Value: true
+        left_knee_5:
+          Value: true
+        left_knee_6:
+          Value: true
+        left_knee_9:
+          Value: true
+        left_shoulder_1:
+          Value: true
+        left_shoulder_2:
+          Value: true
+        left_shoulder_3:
+          Value: true
+        left_shoulder_5:
+          Value: true
+        left_shoulder_6:
+          Value: true
+        left_shoulder_9:
           Value: true
         map:
           Value: true
-        mount_asus_xtion_pro_link:
-          Value: true
         neck_1:
+          Value: true
+        neck_2:
+          Value: true
+        neck_3:
+          Value: true
+        neck_5:
+          Value: true
+        neck_6:
+          Value: true
+        neck_9:
           Value: true
         odom:
           Value: true
-        plate_bottom_link:
+        openni_depth_frame:
           Value: true
-        plate_middle_link:
+        right_elbow_1:
           Value: true
-        plate_top_link:
+        right_elbow_2:
           Value: true
-        pole_bottom_0_link:
+        right_elbow_3:
           Value: true
-        pole_bottom_1_link:
+        right_elbow_5:
           Value: true
-        pole_bottom_2_link:
+        right_elbow_6:
           Value: true
-        pole_bottom_3_link:
+        right_elbow_9:
           Value: true
-        pole_bottom_4_link:
+        right_foot_1:
           Value: true
-        pole_bottom_5_link:
+        right_foot_2:
           Value: true
-        pole_kinect_0_link:
+        right_foot_3:
           Value: true
-        pole_kinect_1_link:
+        right_foot_5:
           Value: true
-        pole_middle_0_link:
+        right_foot_6:
           Value: true
-        pole_middle_1_link:
+        right_foot_9:
           Value: true
-        pole_middle_2_link:
+        right_hand_1:
           Value: true
-        pole_middle_3_link:
+        right_hand_2:
           Value: true
-        pole_top_0_link:
+        right_hand_3:
           Value: true
-        pole_top_1_link:
+        right_hand_5:
           Value: true
-        pole_top_2_link:
+        right_hand_6:
           Value: true
-        pole_top_3_link:
+        right_hand_9:
           Value: true
-        wheel_left_link:
+        right_hip_1:
           Value: true
-        wheel_right_link:
+        right_hip_2:
+          Value: true
+        right_hip_3:
+          Value: true
+        right_hip_5:
+          Value: true
+        right_hip_6:
+          Value: true
+        right_hip_9:
+          Value: true
+        right_knee_1:
+          Value: true
+        right_knee_2:
+          Value: true
+        right_knee_3:
+          Value: true
+        right_knee_5:
+          Value: true
+        right_knee_6:
+          Value: true
+        right_knee_9:
+          Value: true
+        right_shoulder_1:
+          Value: true
+        right_shoulder_2:
+          Value: true
+        right_shoulder_3:
+          Value: true
+        right_shoulder_5:
+          Value: true
+        right_shoulder_6:
+          Value: true
+        right_shoulder_9:
+          Value: true
+        torso_1:
+          Value: true
+        torso_2:
+          Value: true
+        torso_3:
+          Value: true
+        torso_5:
+          Value: true
+        torso_6:
+          Value: true
+        torso_9:
           Value: true
       Marker Scale: 1
       Name: TF
@@ -322,77 +274,196 @@ Visualization Manager:
       Show Names: false
       Tree:
         map:
-          neck_1:
-            {}
           odom:
             base_footprint:
               base_link:
-                base_laser_link:
+                camera_link:
                   {}
-                camera_rgb_frame:
-                  camera_depth_frame:
-                    camera_depth_optical_frame:
-                      {}
-                  camera_link:
+                laser:
+                  {}
+                openni_depth_frame:
+                  head_1:
                     {}
-                  camera_rgb_optical_frame:
+                  head_2:
                     {}
-                caster_back_link:
-                  {}
-                caster_front_link:
-                  {}
-                cliff_sensor_front_link:
-                  {}
-                cliff_sensor_left_link:
-                  {}
-                cliff_sensor_right_link:
-                  {}
-                gyro_link:
-                  {}
-                mount_asus_xtion_pro_link:
-                  {}
-                plate_bottom_link:
-                  {}
-                plate_middle_link:
-                  {}
-                plate_top_link:
-                  {}
-                pole_bottom_0_link:
-                  {}
-                pole_bottom_1_link:
-                  {}
-                pole_bottom_2_link:
-                  {}
-                pole_bottom_3_link:
-                  {}
-                pole_bottom_4_link:
-                  {}
-                pole_bottom_5_link:
-                  {}
-                pole_kinect_0_link:
-                  {}
-                pole_kinect_1_link:
-                  {}
-                pole_middle_0_link:
-                  {}
-                pole_middle_1_link:
-                  {}
-                pole_middle_2_link:
-                  {}
-                pole_middle_3_link:
-                  {}
-                pole_top_0_link:
-                  {}
-                pole_top_1_link:
-                  {}
-                pole_top_2_link:
-                  {}
-                pole_top_3_link:
-                  {}
-                wheel_left_link:
-                  {}
-                wheel_right_link:
-                  {}
+                  head_3:
+                    {}
+                  head_5:
+                    {}
+                  head_6:
+                    {}
+                  head_9:
+                    {}
+                  left_elbow_1:
+                    {}
+                  left_elbow_2:
+                    {}
+                  left_elbow_3:
+                    {}
+                  left_elbow_5:
+                    {}
+                  left_elbow_6:
+                    {}
+                  left_elbow_9:
+                    {}
+                  left_foot_1:
+                    {}
+                  left_foot_2:
+                    {}
+                  left_foot_3:
+                    {}
+                  left_foot_5:
+                    {}
+                  left_foot_6:
+                    {}
+                  left_foot_9:
+                    {}
+                  left_hand_1:
+                    {}
+                  left_hand_2:
+                    {}
+                  left_hand_3:
+                    {}
+                  left_hand_5:
+                    {}
+                  left_hand_6:
+                    {}
+                  left_hand_9:
+                    {}
+                  left_hip_1:
+                    {}
+                  left_hip_2:
+                    {}
+                  left_hip_3:
+                    {}
+                  left_hip_5:
+                    {}
+                  left_hip_6:
+                    {}
+                  left_hip_9:
+                    {}
+                  left_knee_1:
+                    {}
+                  left_knee_2:
+                    {}
+                  left_knee_3:
+                    {}
+                  left_knee_5:
+                    {}
+                  left_knee_6:
+                    {}
+                  left_knee_9:
+                    {}
+                  left_shoulder_1:
+                    {}
+                  left_shoulder_2:
+                    {}
+                  left_shoulder_3:
+                    {}
+                  left_shoulder_5:
+                    {}
+                  left_shoulder_6:
+                    {}
+                  left_shoulder_9:
+                    {}
+                  neck_1:
+                    {}
+                  neck_2:
+                    {}
+                  neck_3:
+                    {}
+                  neck_5:
+                    {}
+                  neck_6:
+                    {}
+                  neck_9:
+                    {}
+                  right_elbow_1:
+                    {}
+                  right_elbow_2:
+                    {}
+                  right_elbow_3:
+                    {}
+                  right_elbow_5:
+                    {}
+                  right_elbow_6:
+                    {}
+                  right_elbow_9:
+                    {}
+                  right_foot_1:
+                    {}
+                  right_foot_2:
+                    {}
+                  right_foot_3:
+                    {}
+                  right_foot_5:
+                    {}
+                  right_foot_6:
+                    {}
+                  right_foot_9:
+                    {}
+                  right_hand_1:
+                    {}
+                  right_hand_2:
+                    {}
+                  right_hand_3:
+                    {}
+                  right_hand_5:
+                    {}
+                  right_hand_6:
+                    {}
+                  right_hand_9:
+                    {}
+                  right_hip_1:
+                    {}
+                  right_hip_2:
+                    {}
+                  right_hip_3:
+                    {}
+                  right_hip_5:
+                    {}
+                  right_hip_6:
+                    {}
+                  right_hip_9:
+                    {}
+                  right_knee_1:
+                    {}
+                  right_knee_2:
+                    {}
+                  right_knee_3:
+                    {}
+                  right_knee_5:
+                    {}
+                  right_knee_6:
+                    {}
+                  right_knee_9:
+                    {}
+                  right_shoulder_1:
+                    {}
+                  right_shoulder_2:
+                    {}
+                  right_shoulder_3:
+                    {}
+                  right_shoulder_5:
+                    {}
+                  right_shoulder_6:
+                    {}
+                  right_shoulder_9:
+                    {}
+                  torso_1:
+                    {}
+                  torso_2:
+                    {}
+                  torso_3:
+                    {}
+                  torso_5:
+                    {}
+                  torso_6:
+                    {}
+                  torso_9:
+                    {}
+              imu_link:
+                {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -649,7 +720,7 @@ Visualization Manager:
           Radius: 0.0299999993
           Shaft Diameter: 0.100000001
           Shaft Length: 0.100000001
-          Topic: /move_base/DWAPlannerROS/global_plan
+          Topic: /move_base/TrajectoryPlannerROS/local_plan
           Unreliable: false
           Value: true
       Enabled: true
@@ -767,7 +838,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 22.5893917
+      Distance: 20.7876377
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1

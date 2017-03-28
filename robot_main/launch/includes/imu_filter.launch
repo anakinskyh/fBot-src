@@ -1,13 +1,15 @@
 <launch>
-  <arg name='port' default='/dev/arduino-isel'/>
+  <arg name='port' default='/dev/arduino-nuke'/>
 
   <node pkg="mpu6050_serial_to_imu" type="mpu6050_serial_to_imu_node" name="mpu6050_serial_to_imu_node" required="true" output="screen">
     <param name="port" value="$(arg port)"/>
     <!-- <remap from='/imu/data' to='/imu_data' /> -->
-  </node>
-
-  <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_filter" output="screen">
-    <remap from="/imu/data_raw" to="/imu/data"/>
     <remap from="/imu/data" to="/imu_data"/>
   </node>
+
+  <!-- <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_filter" output="screen">
+    <remap from="/imu/data_raw" to="/imu/data"/>
+    <remap from="/imu/data" to="/imu_data"/>
+    <param name="use_magnetic_field_msg" value="True"/>
+  </node> -->
 </launch>

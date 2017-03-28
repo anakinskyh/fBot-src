@@ -115,6 +115,7 @@ uint8_t teapotPacket[40] = { '$', 0x03, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 0,0, 
 
 
 
+
 // ================================================================
 // ===               INTERRUPT DETECTION ROUTINE                ===
 // ================================================================
@@ -189,6 +190,7 @@ void setup() {
 
         // get expected DMP packet size for later comparison
         packetSize = mpu.dmpGetFIFOPacketSize();
+//        Serial.println("packetSize : %d",packetSize);
     } else {
         // ERROR!
         // 1 = initial memory load failed
@@ -205,6 +207,7 @@ void setup() {
     sensor_t sensor;
     mag.getSensor(&sensor);
 }
+
 
 
 
@@ -230,6 +233,8 @@ void loop() {
         // .
 
         //write other program
+//        Serial.println(mpuInterrupt);
+//        Serial.println(fifoCount);
     }
 
     // reset interrupt flag and get INT_STATUS byte

@@ -28,7 +28,7 @@ class pixel_driver():
             # self.ser.open()
             self.ser.write(msg_out)
             time.sleep(0.05)
-            # rospy.loginfo('write success%s'%(msg_out))
+            rospy.loginfo('write success%s'%(msg_out))
         except :
             print 'unable to connect to port %s',self.dev
             rospy.loginfo('unable to connect to port %s',self.dev)

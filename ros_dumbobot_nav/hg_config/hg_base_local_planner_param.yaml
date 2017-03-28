@@ -1,11 +1,11 @@
 TrajectoryPlannerROS:
-  acc_lim_x: 0.11
+  acc_lim_x: 0.12
   # 1 m/s^2
   acc_lim_theta: 1.5 #0.05 # \2.1
   #1.5 #2
 
 
-  max_vel_x: 0.2
+  max_vel_x: 0.7
   # m/s
   min_vel_x: -0.1 # anakin 0.1
   # m/s
@@ -35,7 +35,7 @@ TrajectoryPlannerROS:
   meter_scoring: false
 
   # interesting
-  pdist_scale: 64 #0.6 #0.7 p 32x.0
+  pdist_scale: 32 #0.6 #0.7 p 32x.0
   #0.4
   gdist_scale: 24 #0.8 # p 20.0
   #0.8

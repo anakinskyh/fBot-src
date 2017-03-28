@@ -2,6 +2,7 @@
 import rospy
 from people_msgs.msg import People,Person
 from nav_msgs.msg import Odometry as odom
+from geometry_msgs.msg import Twist
 import tf
 import numpy as np
 
@@ -28,7 +29,7 @@ class people_stat():
         self.people_topic = rospy.get_param('people_topic','people')
         self.change = rospy.get_param('change',0.005)
         self.dur_tf = rospy.get_param('dur_tf',1.0)
-        self.dur_tw = rospy.get_param('dur_tw',0.2)
+        self.dur_tw = rospy.get_param('dur_tw',0.1)
 
         self.threshold = rospy.get_param('vel_threshold',1.0)
         self.holding_time = rospy.get_param('holding_time',10.0)
@@ -71,11 +72,15 @@ class people_stat():
                     else:
                         starttf_time = rospy.Time(0)
 
+                    # rospy.loginfo('loop')
+
                     (cam_pose,cam_qt) = self.listener.lookupTransform(self.cam_frame,child,starttf_time)
 
                     # out of camera checking
                     miss = (abs(cam_pose[0]-self.cam_poses[i][0])<zero) or (abs(cam_pose[1]-self.cam_poses[i][1])<zero) \
                         or (abs(cam_pose[2]-self.cam_poses[i][2])<zero)
+
+                    # rospy.loginfo(cam_pose)
 
                     if miss:
                         # publish in holding_time
@@ -91,16 +96,18 @@ class people_stat():
                     # rospy.loginfo('----run {} {} {}'.format(child,cam_pose,self.cam_poses[i]))
 
                     (pose,qt) = self.listener.lookupTransform(self.map_frame,child,starttf_time)
-                    # (lin,ang) = self.listener.lookupTwist(self.map_frame,child,rospy.Time(0),rospy.Duration(self.dur_tw))
-                    (lin,ang) = self.listener.lookupTwist(child,self.map_frame,rospy.Time(0),rospy.Duration(self.dur_tw))
 
-                    rospy.loginfo('{}'.format(pose))
+                    try:
+                        (lin,ang) = self.listener.lookupTwist(self.map_frame,child,rospy.Time(0),rospy.Duration(self.dur_tw))
+                    except:
+                        (lin,ang) = Twist()
 
-                    # nlin = np.linalg.norm(np.array(lin)-0)
-                    # nang = np.linalg.norm(np.array(ang)-0)
-                    #
+
+                    nlin = np.linalg.norm(np.array(lin)-0)
+                    nang = np.linalg.norm(np.array(ang)-0)
+
                     # if nlin > 5:
-                    #     rospy.loginfo('{}\t{}'.format(nlin,nang))
+                    rospy.loginfo('{}\t{}'.format(nlin,nang))
 
                     # make person_msg
                     person_msg = Person()

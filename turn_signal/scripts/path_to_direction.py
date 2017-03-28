@@ -1,12 +1,15 @@
 #!/usr/bin/env python
 import rospy
 from nav_msgs.msg import Path,Odometry
-from geometry_msgs.msg import PoseWithCovarianceStamped
+from geometry_msgs.msg import PoseWithCovarianceStamped,Pose
 import tf
 import numpy as np
 from math import pi
 import thread
 from include import turn_signal
+import actionlib
+from move_base_msgs.msg import MoveBaseAction,MoveBaseGoal
+from actionlib_msgs.msg import GoalStatus,GoalStatusArray
 
 class path_to_direction():
     def __init__(self):
@@ -20,18 +23,18 @@ class path_to_direction():
         self.listen_topic = rospy.get_param('listen_topic','/move_base/TrajectoryPlannerROS/global_plan')
         # self.listen_topic = rospy.get_param('listen_topic','/move_base/DWAPlannerROS/global_plan')
         self.lookup_plan = rospy.get_param('lookup_plan','lookup_plan')
-
-        # self.sub_topic = rospy.get_param('~sub_topic','/cmd_vel')
+        self.move_base = rospy.get_param('move_base','move_base')
 
         self.dev = rospy.get_param('dev','/dev/arduino-nuke')
         self.baudrate = rospy.get_param('baudrate',115200)
         self.odom_topic = rospy.get_param('odom_topic','/odom')
 
         self.update_rate = rospy.get_param('~update_rate',5.0)
-        self.light_rate = rospy.get_param('~light_rate',10.0)
+        self.light_rate = rospy.get_param('~light_rate',5.0)
 
         # init
         self.is_update = False
+        self.move_base_state = 0
         #set pixel_driver
         try:
             self.driver = turn_signal.turn_signal(self.dev,self.baudrate)
@@ -46,10 +49,14 @@ class path_to_direction():
         self.stop_counter = 0
         self.odom = Odometry()
 
+        # actionlib
+        self.client = actionlib.SimpleActionClient('move_base',MoveBaseAction)
+        self.client.wait_for_server()
+
         # listen
         rospy.Subscriber(self.listen_topic,Path,self.callback)
-        # rospy.Subscriber(self.odom_topic,Odometry,self.odom_callback)
         rospy.Subscriber(self.odom_topic,PoseWithCovarianceStamped,self.odom_callback)
+        rospy.Subscriber('move_base/status',GoalStatusArray,self.status_callback)
 
         # pubblish
         self.lookup_plan_pub = rospy.Publisher(self.lookup_plan,Path,queue_size=10)
@@ -64,15 +71,15 @@ class path_to_direction():
         self.run()
 
     def callback(self,msg):
-        # rospy.loginfo('callback')
         self.is_update = True
-        # rospy.loginfo()
         self.plan = msg
-
-        # rospy.loginfo(self.plan)
 
     def odom_callback(self,msg):
         self.odom = msg
+
+    def status_callback(self,msg):
+        if len(msg.status_list) > 0:
+            self.move_base_state = msg.status_list[len(msg.status_list)-1].status
 
     def update_status(self):
 
@@ -82,6 +89,7 @@ class path_to_direction():
 
             self.prev_ts_state = self.ts_state
             self.get_status()
+            # rospy.loginfo(self.ts_state)
             # rospy.loginfo('status : {}, angle : {}'.format(self.ts_state,self.angle))
 
             if self.ts_state != self.prev_ts_state:
@@ -91,7 +99,13 @@ class path_to_direction():
 
     def get_status(self):
 
-        if self.is_stop:
+        # rospy.loginfo(self.move_base_state)
+        if self.is_stop or self.move_base_state == GoalStatus.PENDING \
+            or self.move_base_state == GoalStatus.PREEMPTED \
+            or self.move_base_state == GoalStatus.ABORTED \
+            or self.move_base_state == GoalStatus.REJECTED \
+            or self.move_base_state == GoalStatus.LOST \
+            :
             self.ts_state = 'stop'
             return
 
@@ -101,8 +115,6 @@ class path_to_direction():
         # update
         self.stop_counter = 0
 
-
-        # rospy.loginfo('angle : %f'%(self.angle))
         if self.angle >= self.turn_threshold:
             self.ts_state = 'left'
         elif self.angle <= -self.turn_threshold:
@@ -162,14 +174,6 @@ class path_to_direction():
             angle = np.array([0.00,0.00,0.00]) #init.pose.orientation
             for i in range(order,lookup_to):
                 lookup_plan_msg.poses.append(path[i])
-                # quaternion = ( \
-                #     path[i].pose.orientation.x, \
-                #     path[i].pose.orientation.y, \
-                #     path[i].pose.orientation.z, \
-                #     path[i].pose.orientation.w)
-
-                # euler = tf.transformations.euler_from_quaternion(quaternion)
-                # np_euler = np.array(euler)
 
                 l_pose = path[i].pose.position
                 l_pose_np = np.array([l_pose.x,l_pose.y,l_pose.z])
@@ -185,10 +189,6 @@ class path_to_direction():
                 # rospy.loginfo(df)
                 angle = angle*(1-self.ratio)+df*self.ratio
 
-                # a = targetA - sourceA
-                # a = (a + 180) % 360 - 180
-
-            # rospy.loginfo('Diff angle : %f'%(angle[2]))
             self.angle = angle[2]
             self.lookup_plan_pub.publish(lookup_plan_msg)
 

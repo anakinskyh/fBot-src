@@ -20,9 +20,9 @@ class command():
         #     self.map_points = {'x':'y'}
 
         self.gs = goal_setter.goal_setter()
-        rospy.loginfo('hi')
+        # rospy.loginfo('hi')
         # self.run_command()
-        self.select_point()
+        # self.select_point()
 
     def run_command(self):
         menu ={'0':'select point to go'}
@@ -55,7 +55,13 @@ class command():
             '8':['lift3 top',[-18.430, -19.229, 0.000,0.000, 0.000, -0.070, 0.998]],
             '9':['other lab',[-16.894, -23.731, 0.000,0.000, 0.000, 0.658, 0.753]]
         }
-        menu2 = {'a':'insert point','s':'save','e':'exit'}
+        menu2 = {
+            'a':'insert point',
+            's':'save',
+            'g':'get status',
+            'c':'get current goal',
+            'e':'exit'
+        }
 
         while not rospy.is_shutdown():
             print 'Where you wanna go?'
@@ -77,7 +83,8 @@ class command():
                 pose = raw_input('x y z x y z w : ')
                 pose = str.split(pose)
 
-            # elif sel=='g':
+            elif sel=='g':
+                print self.gs.get_status()
 
             else:
                 arr_pose = menu1[sel][1]
