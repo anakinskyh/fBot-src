@@ -8,7 +8,7 @@
   </node> -->
 
   <node pkg="people_stat" type="people_stat.py" name="people_stat" output="screen">
-    <param name="holding_time" value='10.0'/>
+    <param name="holding_time" value='15.0'/>
   </node>
 
 </launch>

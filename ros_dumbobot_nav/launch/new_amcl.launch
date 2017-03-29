@@ -29,7 +29,7 @@
 
     <!-- ~odom_alpha2 (double, default: 0.2) 1.5 old
     Specifies the expected noise in odometry's rotation estimate from translational component of the robot's motion. -->
-    <param name="odom_alpha2"               value="2.0"/>
+    <param name="odom_alpha2"               value="1.9"/>
 
     <!-- ~odom_alpha3 (double, default: 0.2) 1.0 old
     Specifies the expected noise in odometry's translation estimate from the translational component of the robot's motion. -->

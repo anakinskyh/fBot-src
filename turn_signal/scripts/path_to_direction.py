@@ -6,7 +6,7 @@ import tf
 import numpy as np
 from math import pi
 import thread
-from include import turn_signal
+from include import turn_signal as turn_signal
 import actionlib
 from move_base_msgs.msg import MoveBaseAction,MoveBaseGoal
 from actionlib_msgs.msg import GoalStatus,GoalStatusArray
@@ -27,7 +27,7 @@ class path_to_direction():
 
         self.dev = rospy.get_param('dev','/dev/arduino-nuke')
         self.baudrate = rospy.get_param('baudrate',115200)
-        self.odom_topic = rospy.get_param('odom_topic','/odom')
+        self.odom_topic = rospy.get_param('odom_topic','/raw_odom')
 
         self.update_rate = rospy.get_param('~update_rate',5.0)
         self.light_rate = rospy.get_param('~light_rate',5.0)
@@ -55,7 +55,8 @@ class path_to_direction():
 
         # listen
         rospy.Subscriber(self.listen_topic,Path,self.callback)
-        rospy.Subscriber(self.odom_topic,PoseWithCovarianceStamped,self.odom_callback)
+        # rospy.Subscriber(self.odom_topic,PoseWithCovarianceStamped,self.odom_callback)
+        rospy.Subscriber(self.odom_topic,Odometry,self.odom_callback)
         rospy.Subscriber('move_base/status',GoalStatusArray,self.status_callback)
 
         # pubblish
@@ -99,21 +100,23 @@ class path_to_direction():
 
     def get_status(self):
 
-        # rospy.loginfo(self.move_base_state)
-        if self.is_stop or self.move_base_state == GoalStatus.PENDING \
+        # rospy.loginfo('{} {}'.format(self.move_base_state,GoalStatus.PENDING))
+        if self.move_base_state == GoalStatus.PENDING \
             or self.move_base_state == GoalStatus.PREEMPTED \
             or self.move_base_state == GoalStatus.ABORTED \
             or self.move_base_state == GoalStatus.REJECTED \
             or self.move_base_state == GoalStatus.LOST \
+            or self.move_base_state == GoalStatus.SUCCEEDED \
             :
             self.ts_state = 'stop'
+            rospy.loginfo('status {} {}'.format(self.move_base_state,GoalStatus.ABORTED))
             return
 
-        if self.stop_counter >= 10:
-            self.ts_state = 'stop'
-
-        # update
-        self.stop_counter = 0
+        # if self.stop_counter >= 10:
+        #     self.ts_state = 'stop'
+        #
+        # # update
+        # self.stop_counter = 0
 
         if self.angle >= self.turn_threshold:
             self.ts_state = 'left'
@@ -131,6 +134,8 @@ class path_to_direction():
         rate = rospy.Rate(self.update_frequency)
 
         while not rospy.is_shutdown():
+
+            # rospy.loginfo('loop')
 
             rate.sleep()
 
@@ -153,14 +158,6 @@ class path_to_direction():
             # get order
             order = self.get_order()
             lookup_to = min(self.lookup,len(path)-order) + order
-
-            if abs(lookup_to - order) <= 3:
-                self.is_update = False
-                self.is_stop = True
-                # rospy.loginfo('what %d %d'%(order,lookup_to))
-                continue
-            else:
-                self.is_stop = False
 
             init = self.odom.pose.pose.orientation
             init_quan = (init.x,init.y,init.z,init.w)
@@ -186,7 +183,7 @@ class path_to_direction():
                 df = np_euler - init_np
                 df = (df+3*pi)%(2*pi)-pi
 
-                # rospy.loginfo(df)
+                # rospy.loginfo("df : {}".format(df) )
                 angle = angle*(1-self.ratio)+df*self.ratio
 
             self.angle = angle[2]

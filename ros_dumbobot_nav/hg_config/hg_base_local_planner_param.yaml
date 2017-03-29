@@ -1,11 +1,11 @@
 TrajectoryPlannerROS:
-  acc_lim_x: 0.12
+  acc_lim_x: 0.1
   # 1 m/s^2
-  acc_lim_theta: 1.5 #0.05 # \2.1
+  acc_lim_theta: 2.1 #0.05 # \2.1
   #1.5 #2
 
 
-  max_vel_x: 0.7
+  max_vel_x: 0.25
   # m/s
   min_vel_x: -0.1 # anakin 0.1
   # m/s
@@ -45,7 +45,7 @@ TrajectoryPlannerROS:
   ###
   # Goal Tolerance Parameters
   yaw_goal_tolerance: 0.5 # norm 0.3  # 0.15 rad
-  xy_goal_tolerance: 0.3  #0.1 m
+  xy_goal_tolerance: 0.5 #0.3  #0.1 m
   # latch_xy_goal_tolerance: false
 
   #The amount of time to forward-simulate trajectories in seconds

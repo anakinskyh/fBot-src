@@ -7,7 +7,7 @@ import time
 import numpy as np
 # from turn_signal.msg import TsState
 import pixel_driver
-import signal_template_A_yellow as st
+import signal_template_B_yellow as st
 
 class turn_signal():
     def __init__(self,dev = '/dev/arduino',boudRate = 115200,size = 40):
@@ -78,7 +78,7 @@ class turn_signal():
         while self.ts_signal == 'left' and not rospy.is_shutdown():
             self.driver.set_by_colorlist(signal)
             self.driver.show()
-            signal = np.roll(signal,1,axis=0)
+            # signal = np.roll(signal,1,axis=0)
 
             self.rate.sleep()
 
@@ -87,7 +87,7 @@ class turn_signal():
         while self.ts_signal == 'right' and not rospy.is_shutdown():
             self.driver.set_by_colorlist(signal)
             self.driver.show()
-            signal = np.roll(signal,-1,axis=0)
+            # signal = np.roll(signal,-1,axis=0)
 
             self.rate.sleep()
 
@@ -109,8 +109,6 @@ class turn_signal():
 
             self.driver.set_by_colorlist(signal)
             self.driver.show()
-
-            signal = np.roll(signal,-1,axis=0)
 
             self.rate.sleep()
 

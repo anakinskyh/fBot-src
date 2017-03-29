@@ -22,7 +22,7 @@
 
 
     <node pkg="learning_joy" type="turtle_teleop_joy" name="teleop_turtle">
-        <remap from="cmd_vel" to="raw_cmd_vel"/>
+        <remap from="cmd_vel" to="joy_cmd_vel"/>
         <!--<remap from="cmd_vel" to="simple_create/cmd_vel"/>-->
         <!--<remap from="cmd_vel" to="mobile_base/commands/velocity"/>-->
     </node>

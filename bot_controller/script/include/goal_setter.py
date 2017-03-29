@@ -5,39 +5,71 @@ import actionlib
 import thread
 
 from move_base_msgs.msg import MoveBaseAction,MoveBaseGoal,MoveBaseActionFeedback
-from geometry_msgs.msg import Pose
+from geometry_msgs.msg import Pose,Twist
 from people_msgs.msg import People
 from actionlib_msgs.msg import GoalStatus,GoalStatusArray
 import numpy as np
 
 class goal_setter():
-    def __init__(self,debug_mode = True,move_base='move_base',frame = 'map',use_human_monitor = True,human_dist = 10.0):
+    def __init__(self,debug_mode = True,move_base='move_base',frame = 'map',use_human_monitor = True, \
+        human_dist = 1.2, rotate_time = 0.4, die_timeout = 2, use_detected_die = True):
         self.move_base = move_base
         self.frame = frame
         self.debug_mode = debug_mode
+
         self.use_human_monitor = use_human_monitor
         self.human_dist = human_dist
+
+        self.use_detected_die = use_detected_die
+        self.rotate_time = rotate_time
+        self.die_timeout = die_timeout
 
         self.client = actionlib.SimpleActionClient(self.move_base,MoveBaseAction)
         self.client.wait_for_server()
 
+        self.mb_start = False
+        self.detect_die_start = False
+        self.people_start = False
+        self.goal_start = False
+
 
         rospy.Subscriber('/move_base/status',GoalStatusArray,self.callback_status)
 
+        rospy.Subscriber('/people',People,self.callback_people)
+        rospy.Subscriber('/move_base/feedback',MoveBaseActionFeedback,self.callback_feedback)
+        rospy.Subscriber('/move_base/status',GoalStatusArray,self.callback_status)
+        rospy.Subscriber('/cmd_vel',Twist,self.callback_detect_die)
+
         # subscribe people and pose
         if self.use_human_monitor:
-            rospy.Subscriber('/people',People,self.callback_people)
-            rospy.Subscriber('/move_base/feedback',MoveBaseActionFeedback,self.callback_feedback)
-            rospy.Subscriber('/move_base/status',GoalStatusArray,self.callback_status)
+            thread.start_new_thread(self.human_monitor,())
+
+        if self.use_detected_die:
+            self.recover_pub = rospy.Publisher('/recover_cmd_vel',Twist,queue_size=10)
+            thread.start_new_thread(self.detect_die,())
+
+    def callback_detect_die(self,msg):
+
+        self.cmd_vel = msg
+
+        if not self.detect_die_start:
+            self.detect_die_start = True
+            self.last_detect_cmd_vel = rospy.Time.now()
+
+        if np.count_nonzero([msg.linear.x,msg.linear.y,msg.linear.z, \
+            msg.angular.x,msg.angular.y,msg.angular.z]) > 0:
+            self.last_detect_cmd_vel = rospy.Time.now()
 
     def callback_pose(self,msg):
         self.current_pose = msg
 
     def callback_people(self,msg):
         self.people = msg
+        self.people_start = True
 
     def callback_feedback(self,msg):
-        self.mb_base_pos = msg.feedback.base_position.pose.position
+        self.mb_start = True
+        self.mb_base_pos = msg.feedback.base_position.pose
         self.mb_status = msg.status.status
 
     def callback_status(self,msg):
@@ -48,8 +80,8 @@ class goal_setter():
     """ Pass goal to me and  """
     def move_to(self,pose,wait = False,new_goal = True):
         if new_goal:
+            self.goal_start = True
             self.current_goal = pose
-            # thread.start_new_thread(self.human_monitor,())
 
         if self.debug_mode:
             rospy.loginfo('go to somewhere ')
@@ -92,7 +124,7 @@ class goal_setter():
     def get_status(self):
 
         try:
-            return self.mb_status
+            return self.cb_status
         except:
             rospy.logerr('get_status error')
         return -1
@@ -109,14 +141,16 @@ class goal_setter():
         rospy.loginfo('human monitor')
         stop = False
 
-        while (self.mb_status != GoalStatus.SUCCEEDED \
-            and self.mb_status != GoalStatus.ABORTED \
-            and self.mb_status != GoalStatus.LOST \
-            and self.mb_status != GoalStatus.REJECTED \
+        while (self.cb_status != GoalStatus.SUCCEEDED \
+            # and self.cb_status != GoalStatus.ABORTED \
+            # and self.cb_status != GoalStatus.LOST \
+            # and self.cb_status != GoalStatus.REJECTED \
             ) or stop \
             :
+            if not self.mb_start or not self.people_start or not self.goal_start:
+                continue
             nearest_dist = 100000.00
-            np_mb_base_pos = np.array([self.mb_base_pos.x,self.mb_base_pos.y,self.mb_base_pos.z])
+            np_mb_base_pos = np.array([self.mb_base_pos.position.x,self.mb_base_pos.position.y,self.mb_base_pos.position.z])
             for person in self.people.people:
                 person_pos = person.position
                 np_person_pos = np.array([person_pos.x,person_pos.y,person_pos.z])
@@ -125,13 +159,48 @@ class goal_setter():
 
                 nearest_dist = min(nearest_dist,dist)
 
-            if nearest_dist <= self.human_dist:
+            # rospy.loginfo('nearest : {}'.format(nearest_dist))
+
+            if nearest_dist > self.human_dist and stop:
+                self.move_to(self.current_goal,new_goal = False)
+                stop = False
+
+            elif nearest_dist <= self.human_dist:
                 stop = True
 
-                self.move_to(self.mb_base_pos,new_goal = True)
+                self.move_to(self.mb_base_pos,new_goal = False)
+                rospy.loginfo('nearest_dist : {}'.format(nearest_dist))
+                # rospy.loginfo(self.mb_base_pos)
+                # rospy.loginfo(self.current_goal)
             else:
                 stop = False
 
+    def detect_die(self):
+        rotate_msg = Twist()
+        rotate_msg.angular.z = 10
+
+        stop_msg = Twist()
+        dur = rospy.Duration(self.rotate_time)
+
+        timeout = rospy.Duration(self.die_timeout)
+
+        while not rospy.is_shutdown():
+            if not self.detect_die_start:
+                continue
+            if self.get_status() == GoalStatus.ACTIVE and rospy.Time.now()> self.last_detect_cmd_vel + timeout:
+                # rotate
+                # now_x = rospy.get_rostime()
+                # while rospy.get_rostime() - now_x < dur:
+                    # rospy.loginfo("{} {}".format(rospy.get_rostime() - now_x ,dur))
+                rate_rec = rospy.Rate(20)
+                for i in range(0,int(self.rotate_time*20) ):
+                    self.recover_pub.publish(rotate_msg)
+                    rate_rec.sleep()
+
+                # stop
+                self.recover_pub.publish(stop_msg)
+
+                rospy.sleep(2)
 
 
 if __name__ == '__main__':

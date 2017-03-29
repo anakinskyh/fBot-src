@@ -123,8 +123,9 @@ int main(int argc, char** argv)
                 memcpy(&yf,&input[data_packet_start+10],4);
                 memcpy(&zf,&input[data_packet_start+14],4);
 
-                if(isnan(xf)){
+                if(isnan(xf) || isnan(wf) || isnan(yf) || isnan(zf) ){
                   ROS_INFO("nan %f",xf);
+                  continue;
                 }
 
                 // double wf = w/16384.0;
@@ -206,7 +207,7 @@ int main(int argc, char** argv)
                 umz.b[1] = (unsigned char)input[data_packet_start +57];
                 umz.b[2] = (unsigned char)input[data_packet_start +58];
                 umz.b[3] = (unsigned char)input[data_packet_start +59];
-                ROS_INFO("%f %f %f",umx.f,umy.f,umz.f);
+                // ROS_INFO("%f %f %f",umx.f,umy.f,umz.f);
 
                 if (received_message) // can only check for continuous numbers if already received at least one packet
                 {

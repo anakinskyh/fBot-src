@@ -4,6 +4,7 @@ import pickle
 import rospy
 from geometry_msgs.msg import Pose
 from include import goal_setter
+from actionlib_msgs.msg import GoalStatus
 
 class command():
     def __init__(self,map =''):
@@ -55,8 +56,12 @@ class command():
             '8':['lift3 top',[-18.430, -19.229, 0.000,0.000, 0.000, -0.070, 0.998]],
             '9':['other lab',[-16.894, -23.731, 0.000,0.000, 0.000, 0.658, 0.753]]
         }
+
+        self.menu1 = menu1
+
         menu2 = {
             'a':'insert point',
+            'p':'path',
             's':'save',
             'g':'get status',
             'c':'get current goal',
@@ -86,6 +91,9 @@ class command():
             elif sel=='g':
                 print self.gs.get_status()
 
+            elif sel=='p':
+                self.follow_path()
+
             else:
                 arr_pose = menu1[sel][1]
                 # pose.position
@@ -95,6 +103,58 @@ class command():
                     pose.orientation.w) = arr_pose[3:7]
                 # rospy.loginfo('arr {}'.format(pose))
                 self.gs.move_to(pose)
+
+    def follow_path(self,timeout=10,qr_read = False):
+
+        path1 = {
+            '0':['all point','0','1','2','3','4','5','6','7','8','9','0'],
+            '1':['lift-zig-zag','3','6','4','7','5','8'],
+        }
+
+        menu2 = {
+            'g':'get status',
+            'e':'exit'
+        }
+
+        while not rospy.is_shutdown():
+            print 'Path selection'
+
+            for k,v in path1.iteritems():
+                # rospy.loginfo(self.menu1[i])
+                print '%s\t%s'%(k,v[0])
+            for k,v in menu2.iteritems():
+                print '%s\t%s'%(k,v)
+
+            sel = raw_input('command : ')
+
+            if sel=='e':
+                break
+            elif sel=='g':
+                print self.gs.get_status()
+            else:
+                arr = path1[sel]
+                # rospy.loginfo(arr)
+
+                for i in range(1,len(arr)):
+                    arr_pose = self.menu1[arr[i]][1]
+                    rospy.loginfo('go to {}'.format(arr_pose))
+                    pose = Pose()
+                    (pose.position.x,pose.position.y,pose.position.z) = arr_pose[0:3] #arr_pose[0:3]
+                    (pose.orientation.x,pose.orientation.y,pose.orientation.z, \
+                        pose.orientation.w) = arr_pose[3:7]
+                    self.gs.move_to(pose)
+                    rospy.sleep(5)
+
+                    last_time = rospy.Time.now()
+                    wait_time = rospy.Duration(timeout)
+                    while rospy.Time.now()  <= last_time +wait_time and self.gs.get_status() != GoalStatus.SUCCEEDED:
+                        if self.gs.get_status() == GoalStatus.ACTIVE:
+                            last_time = rospy.Time.now()
+
+                    if self.gs.get_status() == GoalStatus.SUCCEEDED and qr_read:
+                        rospy.loginfo('read qr')
+
+
 
 
 if __name__ == '__main__':

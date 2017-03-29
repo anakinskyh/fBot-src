@@ -100,7 +100,9 @@ class people_stat():
                     try:
                         (lin,ang) = self.listener.lookupTwist(self.map_frame,child,rospy.Time(0),rospy.Duration(self.dur_tw))
                     except:
-                        (lin,ang) = Twist()
+                        lin = [0,0,0]
+                        ang = [0,0,0]
+
 
 
                     nlin = np.linalg.norm(np.array(lin)-0)
