@@ -11,6 +11,17 @@
     args="load yocs_velocity_smoother/VelocitySmootherNodelet smoother_nodelet_manager">
     <remap from='/smoother_nodelet/raw_cmd_vel' to='/raw_cmd_vel'/>
     <remap from='/smoother_nodelet/odometry' to='odom'/>
-    <remap from='/smoother_nodelet/smooth_cmd_vel' to='cmd_vel'/>
+    <remap from='/smoother_nodelet/smooth_cmd_vel' to='/smooth_cmd_vel'/>
+  </node>
+
+  <node pkg="bot_controller" type="vel_scaler.py" name="smooth_vel_scaler" output="screen">
+    <param name="sub_cmd_vel" value="smooth_cmd_vel"/>
+    <param name="pub_cmd_vel" value="cmd_vel"/>
+  </node>
+
+  <node pkg="bot_controller" type="human_monitor.py" name="human_monitor" output="screen">
+    <param name="human_lin_scale" value="0.8"/>
+    <param name="human_ang_scale" value="0.8"/>
+    <param name="human_dist" value="2.5"/>
   </node>
 </launch>

@@ -7,7 +7,7 @@
     <param name="magic" value="-1" />
   </node> -->
 
-  <node pkg="people_stat" type="people_stat.py" name="people_stat" output="screen">
+  <node pkg="people_stat" type="people_stat.py" name="people_stat">
     <param name="holding_time" value='15.0'/>
   </node>
 

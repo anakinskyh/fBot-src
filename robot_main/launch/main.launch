@@ -12,5 +12,5 @@
     <include file="$(find robot_main)/launch/includes/openni_tracker.launch"/>
 
     <!-- led -->
-    <!-- <include file="$(find robot_main)/launch/includes/path_to_direction.launch"/> -->
+    <include file="$(find robot_main)/launch/includes/path_to_direction.launch"/>
 </launch>

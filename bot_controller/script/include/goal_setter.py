@@ -12,7 +12,7 @@ import numpy as np
 
 class goal_setter():
     def __init__(self,debug_mode = True,move_base='move_base',frame = 'map',use_human_monitor = True, \
-        human_dist = 1.2, rotate_time = 0.4, die_timeout = 2, use_detected_die = True):
+        human_dist = 1.5, rotate_time = 0.4, die_timeout = 2, use_detected_die = True):
         self.move_base = move_base
         self.frame = frame
         self.debug_mode = debug_mode
@@ -32,6 +32,7 @@ class goal_setter():
         self.people_start = False
         self.goal_start = False
 
+        self.disble_die_recover = False
 
         rospy.Subscriber('/move_base/status',GoalStatusArray,self.callback_status)
 
@@ -159,19 +160,16 @@ class goal_setter():
 
                 nearest_dist = min(nearest_dist,dist)
 
-            # rospy.loginfo('nearest : {}'.format(nearest_dist))
-
             if nearest_dist > self.human_dist and stop:
                 self.move_to(self.current_goal,new_goal = False)
                 stop = False
+                self.disble_die_recover = False
 
             elif nearest_dist <= self.human_dist:
                 stop = True
 
                 self.move_to(self.mb_base_pos,new_goal = False)
-                rospy.loginfo('nearest_dist : {}'.format(nearest_dist))
-                # rospy.loginfo(self.mb_base_pos)
-                # rospy.loginfo(self.current_goal)
+                self.disble_die_recover = True
             else:
                 stop = False
 
@@ -187,7 +185,7 @@ class goal_setter():
         while not rospy.is_shutdown():
             if not self.detect_die_start:
                 continue
-            if self.get_status() == GoalStatus.ACTIVE and rospy.Time.now()> self.last_detect_cmd_vel + timeout:
+            if self.get_status() == GoalStatus.ACTIVE and rospy.Time.now()> self.last_detect_cmd_vel + timeout and not self.disble_die_recover:
                 # rotate
                 # now_x = rospy.get_rostime()
                 # while rospy.get_rostime() - now_x < dur:
