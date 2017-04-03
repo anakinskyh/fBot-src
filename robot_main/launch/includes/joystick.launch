@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
 <launch>
+    <arg name="pub_topic" default="joy_cmd_vel" />
+
     <!-- joy node -->
     <node respawn="true" pkg="joy" type="joy_node" name="ros_joy_node">
         <param name="dev" type="string" value="/dev/input/js0"/>
@@ -22,7 +24,7 @@
 
 
     <node pkg="learning_joy" type="turtle_teleop_joy" name="teleop_turtle">
-        <remap from="cmd_vel" to="joy_cmd_vel"/>
+        <remap from="cmd_vel" to="$(arg pub_topic)"/>
         <!--<remap from="cmd_vel" to="simple_create/cmd_vel"/>-->
         <!--<remap from="cmd_vel" to="mobile_base/commands/velocity"/>-->
     </node>

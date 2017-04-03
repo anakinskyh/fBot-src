@@ -16,28 +16,31 @@ class path_to_direction():
         rospy.init_node('path_to_direction')
 
         # read param
-        self.update_frequency = rospy.get_param('update_frequency',10)
-        self.ratio = rospy.get_param('ratio',0.6)
-        self.lookup = rospy.get_param('lookup',200)
-        self.turn_threshold = rospy.get_param('turn_threshold',0.3)
-        self.listen_topic = rospy.get_param('listen_topic','/move_base/TrajectoryPlannerROS/global_plan')
+        self.update_frequency = rospy.get_param('~update_frequency',10)
+        self.ratio = rospy.get_param('~ratio',0.6)
+        self.lookup = rospy.get_param('~lookup',200)
+        self.turn_threshold = rospy.get_param('~turn_threshold',0.3)
+        self.listen_topic = rospy.get_param('~listen_topic','/move_base/TrajectoryPlannerROS/global_plan')
         # self.listen_topic = rospy.get_param('listen_topic','/move_base/DWAPlannerROS/global_plan')
-        self.lookup_plan = rospy.get_param('lookup_plan','lookup_plan')
-        self.move_base = rospy.get_param('move_base','move_base')
+        self.lookup_plan = rospy.get_param('~lookup_plan','lookup_plan')
+        self.move_base = rospy.get_param('~move_base','move_base')
 
-        self.dev = rospy.get_param('dev','/dev/arduino-nuke')
-        self.baudrate = rospy.get_param('baudrate',115200)
-        self.odom_topic = rospy.get_param('odom_topic','/raw_odom')
+        self.dev = rospy.get_param('~dev','/dev/arduino-nuke')
+        self.baudrate = rospy.get_param('~baudrate',115200)
+        self.odom_topic = rospy.get_param('~odom_topic','/raw_odom')
 
         self.update_rate = rospy.get_param('~update_rate',5.0)
         self.light_rate = rospy.get_param('~light_rate',5.0)
+
+        self.color = rospy.get_param('~color','yellow') # yellow green red
+        self.ismove = rospy.get_param('~ismove',True)
 
         # init
         self.is_update = False
         self.move_base_state = 0
         #set pixel_driver
         try:
-            self.driver = turn_signal.turn_signal(self.dev,self.baudrate)
+            self.driver = turn_signal.turn_signal(self.dev,self.baudrate,color=self.color,ismove = self.ismove)
             rospy.loginfo('driver workwell')
         except:
             rospy.loginfo('bad')
@@ -95,7 +98,7 @@ class path_to_direction():
 
             if self.ts_state != self.prev_ts_state:
                 rospy.loginfo('status : {}, angle : {}'.format(self.ts_state,self.angle))
-            rospy.loginfo('status : {}, angle : {}'.format(self.ts_state,self.angle))
+            # rospy.loginfo('status : {}, angle : {}'.format(self.ts_state,self.angle))
             self.driver.change_state(self.ts_state,0.00,0.00)
 
     def get_status(self):
@@ -109,7 +112,7 @@ class path_to_direction():
             or self.move_base_state == GoalStatus.SUCCEEDED \
             :
             self.ts_state = 'stop'
-            rospy.loginfo('status {} {}'.format(self.move_base_state,GoalStatus.ABORTED))
+            # rospy.loginfo('status {} {}'.format(self.move_base_state,GoalStatus.ABORTED))
             return
 
         # if self.stop_counter >= 10:

@@ -7,10 +7,16 @@ import time
 import numpy as np
 # from turn_signal.msg import TsState
 import pixel_driver
-import signal_template_A_yellow as st
+import signal_template_A_yellow as st_A_yellow
+import signal_template_A_green as st_A_green
+import signal_template_A_red as st_A_red
+
+import signal_template_B_yellow as st_B_yellow
+import signal_template_B_green as st_B_green
+import signal_template_B_red as st_B_red
 
 class turn_signal():
-    def __init__(self,dev = '/dev/arduino',boudRate = 115200,size = 40):
+    def __init__(self,dev = '/dev/arduino',boudRate = 115200,size = 40,color='yellow',ismove = True):
         self.dev = dev
         self.boudRate = boudRate
         self.size = 40
@@ -20,6 +26,36 @@ class turn_signal():
         self.ts_signal = 'stop'
         self.vel_x = 0.0
         self.vel_z = 0.0
+
+        self.color = color
+        self.ismove = ismove
+
+        rospy.loginfo('color and ismve {} {}'.format(self.color,self.ismove) )
+        # color and ismove or not
+        if ismove:
+            try:
+                if color == 'yellow':
+                    self.st = st_A_yellow
+                elif color == 'green':
+                    self.st = st_A_green
+                elif color == 'red':
+                    self.st = st_A_red
+                else:
+                    self.st = st_A_yellow
+            except:
+                self.st = st_A_yellow
+        else:
+            try:
+                if color == 'yellow':
+                    self.st = st_B_yellow
+                elif color == 'green':
+                    self.st = st_B_green
+                elif color == 'red':
+                    self.st = st_B_red
+                else:
+                    self.st = st_B_yellow
+            except:
+                self.st = st_B_yellow
 
         self.driver = pixel_driver.pixel_driver(dev=dev,boudRate = boudRate,size =size)
 
@@ -74,25 +110,29 @@ class turn_signal():
             # rospy.loginfo('a')
 
     def left(self):
-        signal = st.left
+        signal = self.st.left
         while self.ts_signal == 'left' and not rospy.is_shutdown():
             self.driver.set_by_colorlist(signal)
             self.driver.show()
-            signal = np.roll(signal,1,axis=0)
+
+            if self.ismove:
+                signal = np.roll(signal,1,axis=0)
 
             self.rate.sleep()
 
     def right(self):
-        signal = st.right
+        signal = self.st.right
         while self.ts_signal == 'right' and not rospy.is_shutdown():
             self.driver.set_by_colorlist(signal)
             self.driver.show()
-            signal = np.roll(signal,-1,axis=0)
+
+            if self.ismove:
+                signal = np.roll(signal,-1,axis=0)
 
             self.rate.sleep()
 
     def top(self):
-        signal = st.top0
+        signal = self.st.top0
         # rospy.loginfo('top')
 
         while self.ts_signal == 'top' and not rospy.is_shutdown():
@@ -103,7 +143,7 @@ class turn_signal():
 
     def top_left(self):
 
-        signal = st.left
+        signal = self.st.left
 
         while self.ts_signal == 'left' and not rospy.is_shutdown():
 
@@ -116,7 +156,7 @@ class turn_signal():
 
     def top_right(self):
 
-        signal = st.right
+        signal = self.st.right
 
         while self.ts_signal == 'top right' and not rospy.is_shutdown():
 

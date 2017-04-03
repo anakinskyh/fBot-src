@@ -79,6 +79,11 @@ class light():
         self.update_rate = rospy.get_param('~update_rate',10.0)
         self.light_rate = rospy.get_param('~light_rate',2.0)
 
+        self.color = rospy.get_param('~color','yellow')
+        self.ismove = rospy.get_param('~ismove',True)
+
+        rospy.loginfo(self.color)
+
 
 
     def init(self):
@@ -100,8 +105,9 @@ class light():
 
         self.listener()
 
+
         #set pixel_driver
-        self.driver = turn_signal.turn_signal(self.dev,self.baudrate)
+        self.driver = turn_signal.turn_signal(self.dev,self.baudrate,color=self.color,ismove=self.ismove)
 
         # self.write_ser()
         thread.start_new_thread(self.update_light,())
