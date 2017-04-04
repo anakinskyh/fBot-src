@@ -32,6 +32,7 @@ class human_monitor():
         self.lin_scale_pub = rospy.Publisher('lin_scale',Float,queue_size=10)
         self.ang_scale_pub = rospy.Publisher('ang_scale',Float,queue_size=10)
         self.cancel_pub = rospy.Publisher('cancel_scale',Bool,queue_size=10)
+        self.pause_pub = rospy.Publisher('pause',Float,queue_size=10)
 
         # Message
         self.lin_msg = Float()
@@ -42,6 +43,9 @@ class human_monitor():
 
         self.cancel_msg = Bool()
         self.cancel_msg.data = True
+
+        self.pause_msg = Float()
+        self.pause_msg.data = 0.5
 
         thread.start_new_thread(self.update_tf,())
 
@@ -83,7 +87,8 @@ class human_monitor():
                 self.mb_base_pos = msg.pose.pose
                 # rospy.loginfo(self.mb_base_pos)
             except:
-                rospy.loginfo('err')
+                x = 0
+                # rospy.loginfo('err')
 
     def monitor(self):
 
@@ -117,6 +122,9 @@ class human_monitor():
                 slow = True
                 self.lin_scale_pub.publish(self.lin_msg)
                 self.ang_scale_pub.publish(self.ang_msg)
+
+                if self.human_lin_scale < 0.1 and self.human_ang_scale < 0.1:
+                    self.pause_pub.publish(self.pause_msg)
 
 if __name__ == '__main__':
     mnt = human_monitor()

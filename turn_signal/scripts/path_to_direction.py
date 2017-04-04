@@ -7,10 +7,11 @@ import numpy as np
 from math import pi
 import thread
 from include import turn_signal as turn_signal
-from include import turn_signal_C
+from include import turn_signal_C,turn_signal_E,turn_signal_D
 import actionlib
 from move_base_msgs.msg import MoveBaseAction,MoveBaseGoal
 from actionlib_msgs.msg import GoalStatus,GoalStatusArray
+from std_msgs.msg import Float64 as Float
 
 class path_to_direction():
     def __init__(self):
@@ -38,17 +39,20 @@ class path_to_direction():
         self.color = rospy.get_param('~color','yellow') # yellow green red
         self.ismove = rospy.get_param('~ismove',True)
 
+
         # init
         self.is_update = False
         self.move_base_state = 0
+        self.pause_time = rospy.Time.now()
+
         #set pixel_driver
         try:
             if str.lower(self.type) == 'c':
                 self.driver = turn_signal_C.turn_signal(self.dev,self.baudrate,color=self.color,ismove = self.ismove)
             elif str.lower(self.type) == 'd':
-                self.driver = turn_signal.turn_signal(self.dev,self.baudrate,color=self.color,ismove = self.ismove)
+                self.driver = turn_signal_D.turn_signal(self.dev,self.baudrate,color=self.color,ismove = self.ismove)
             elif str.lower(self.type) == 'e':
-                self.driver = turn_signal.turn_signal(self.dev,self.baudrate,color=self.color,ismove = self.ismove)
+                self.driver = turn_signal_E.turn_signal(self.dev,self.baudrate,color=self.color,ismove = self.ismove)
             elif str.lower(self.type) == 'a':
                 self.driver = turn_signal.turn_signal(self.dev,self.baudrate,color=self.color,ismove = self.ismove)
             else:
@@ -74,6 +78,7 @@ class path_to_direction():
         # rospy.Subscriber(self.odom_topic,PoseWithCovarianceStamped,self.odom_callback)
         rospy.Subscriber(self.odom_topic,Odometry,self.odom_callback)
         rospy.Subscriber('move_base/status',GoalStatusArray,self.status_callback)
+        rospy.Subscriber('pause',Float,self.pause_callback)
 
         # pubblish
         self.lookup_plan_pub = rospy.Publisher(self.lookup_plan,Path,queue_size=10)
@@ -91,6 +96,9 @@ class path_to_direction():
     def callback(self,msg):
         self.is_update = True
         self.plan = msg
+
+    def pause_callback(self,msg):
+        self.pause_time = rospy.Time.now() + rospy.Duration(msg.data)
 
     def odom_callback(self,msg):
         # rospy.logerr('recv : {}'.format(msg))
@@ -142,6 +150,10 @@ class path_to_direction():
             self.driver.change_state(self.ts_state,0.00,0.00)
 
     def get_status(self):
+
+        if rospy.Time.now() < self.pause_time:
+            self.ts_state = 'stop'
+            return
 
         # rospy.loginfo('{} {}'.format(self.move_base_state,GoalStatus.PENDING))
         if self.move_base_state == GoalStatus.PENDING \

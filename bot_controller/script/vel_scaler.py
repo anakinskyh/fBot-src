@@ -28,9 +28,9 @@ class vel_scaler():
 
         # Subscriber
         rospy.Subscriber(self.sub_cmd_vel,Twist,self.callback_sub_vel)
-        rospy.Subscriber(self.lin_scale_topic,Float,self.callback_sub_vel)
-        rospy.Subscriber(self.ang_scale_topic,Float,self.callback_sub_vel)
-        rospy.Subscriber('cancel_scale',Bool,self.callback_sub_vel)
+        rospy.Subscriber(self.lin_scale_topic,Float,self.callback_lin_scale)
+        rospy.Subscriber(self.ang_scale_topic,Float,self.callback_ang_scale)
+        rospy.Subscriber('cancel_scale',Bool,self.callback_cancel_scale)
 
         rospy.spin()
 
@@ -54,7 +54,7 @@ class vel_scaler():
 
     def callback_cancel_scale(self,msg):
         self.lin_scale = self.default_lin_scale
-        self.ang_scale = self.defaukt_ang_scale
+        self.ang_scale = self.default_ang_scale
 
 if __name__ == '__main__':
     vs = vel_scaler()
