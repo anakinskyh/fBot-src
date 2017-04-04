@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+# brinking
 import sys
 import rospy
 import serial
@@ -7,7 +7,7 @@ import time
 import numpy as np
 # from turn_signal.msg import TsState
 import pixel_driver
-import signal_template_C as st_C
+import signal_template_E as st_E
 
 class turn_signal():
     def __init__(self,dev = '/dev/arduino',boudRate = 115200,size = 40,color='yellow',ismove = True):
@@ -22,11 +22,11 @@ class turn_signal():
         self.vel_z = 0.0
 
         self.color = color
-        self.ismove = ismove
+        self.ismove = True
 
         rospy.loginfo('color and ismve {} {}'.format(self.color,self.ismove) )
         # color and ismove or not
-        self.st = st_C
+        self.st = st_E
 
         self.driver = pixel_driver.pixel_driver(dev=dev,boudRate = boudRate,size =size)
 
@@ -86,19 +86,12 @@ class turn_signal():
             self.driver.set_by_colorlist(signal)
             self.driver.show()
 
-            if self.ismove:
-                signal = np.roll(signal,1,axis=0)
-
             self.rate.sleep()
-
     def right(self):
         signal = self.st.right
         while self.ts_signal == 'right' and not rospy.is_shutdown():
             self.driver.set_by_colorlist(signal)
             self.driver.show()
-
-            if self.ismove:
-                signal = np.roll(signal,-1,axis=0)
 
             self.rate.sleep()
 

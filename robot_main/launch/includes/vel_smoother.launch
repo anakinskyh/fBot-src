@@ -16,7 +16,7 @@
 
   <node pkg="bot_controller" type="vel_scaler.py" name="smooth_vel_scaler" output="screen">
     <param name="sub_cmd_vel" value="smooth_cmd_vel"/>
-    <param name="pub_cmd_vel" value="cmd_vel"/>
+    <param name="pub_cmd_vel" value="disable_cmd_vel"/>
   </node>
 
   <node pkg="bot_controller" type="human_monitor.py" name="human_monitor" output="screen">

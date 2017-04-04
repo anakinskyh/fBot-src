@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+# brinking
 import sys
 import rospy
 import serial
@@ -86,9 +86,9 @@ class turn_signal():
             self.driver.set_by_colorlist(signal)
             self.driver.show()
 
-            if self.ismove:
-                signal = np.roll(signal,1,axis=0)
-
+            self.rate.sleep()
+            self.driver.reset_all()
+            self.driver.show()
             self.rate.sleep()
 
     def right(self):
@@ -97,9 +97,9 @@ class turn_signal():
             self.driver.set_by_colorlist(signal)
             self.driver.show()
 
-            if self.ismove:
-                signal = np.roll(signal,-1,axis=0)
-
+            self.rate.sleep()
+            self.driver.reset_all()
+            self.driver.show()
             self.rate.sleep()
 
     def top(self):

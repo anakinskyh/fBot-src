@@ -7,6 +7,7 @@ import numpy as np
 from math import pi
 import thread
 from include import turn_signal as turn_signal
+from include import turn_signal_C
 import actionlib
 from move_base_msgs.msg import MoveBaseAction,MoveBaseGoal
 from actionlib_msgs.msg import GoalStatus,GoalStatusArray
@@ -32,6 +33,8 @@ class path_to_direction():
         self.update_rate = rospy.get_param('~update_rate',5.0)
         self.light_rate = rospy.get_param('~light_rate',5.0)
 
+        self.type = rospy.get_param('~type','c')
+
         self.color = rospy.get_param('~color','yellow') # yellow green red
         self.ismove = rospy.get_param('~ismove',True)
 
@@ -40,7 +43,17 @@ class path_to_direction():
         self.move_base_state = 0
         #set pixel_driver
         try:
-            self.driver = turn_signal.turn_signal(self.dev,self.baudrate,color=self.color,ismove = self.ismove)
+            if str.lower(self.type) == 'c':
+                self.driver = turn_signal_C.turn_signal(self.dev,self.baudrate,color=self.color,ismove = self.ismove)
+            elif str.lower(self.type) == 'd':
+                self.driver = turn_signal.turn_signal(self.dev,self.baudrate,color=self.color,ismove = self.ismove)
+            elif str.lower(self.type) == 'e':
+                self.driver = turn_signal.turn_signal(self.dev,self.baudrate,color=self.color,ismove = self.ismove)
+            elif str.lower(self.type) == 'a':
+                self.driver = turn_signal.turn_signal(self.dev,self.baudrate,color=self.color,ismove = self.ismove)
+            else:
+                self.driver = turn_signal_C.turn_signal(self.dev,self.baudrate,color=self.color,ismove = self.ismove)
+
             rospy.loginfo('driver workwell')
         except:
             rospy.loginfo('bad')
@@ -70,6 +83,7 @@ class path_to_direction():
         # set thread
         thread.start_new_thread(self.update_light,())
         thread.start_new_thread(self.update_status,())
+        thread.start_new_thread(self.update_tf,())
 
         # run
         self.run()
@@ -79,11 +93,37 @@ class path_to_direction():
         self.plan = msg
 
     def odom_callback(self,msg):
-        self.odom = msg
+        # rospy.logerr('recv : {}'.format(msg))
+        # self.odom = msg
+        x = 0
 
     def status_callback(self,msg):
         if len(msg.status_list) > 0:
             self.move_base_state = msg.status_list[len(msg.status_list)-1].status
+
+    def update_tf(self):
+        listener = tf.TransformListener()
+        while not rospy.is_shutdown():
+            try:
+                (trans,rot) = listener.lookupTransform("odom", "base_link", rospy.Time(0))
+                # rospy.loginfo("{} {}".format(trans,rot) )
+
+                msg = Odometry()
+                msg.header.frame_id = 'odom'
+
+                msg.pose.pose.position.x = trans[0]
+                msg.pose.pose.position.y = trans[1]
+                msg.pose.pose.position.z = trans[2]
+
+                msg.pose.pose.orientation.x = rot[0]
+                msg.pose.pose.orientation.y = rot[1]
+                msg.pose.pose.orientation.z = rot[2]
+                msg.pose.pose.orientation.w = rot[3]
+
+                self.demo_pub.publish(msg)
+                self.odom = msg
+            except:
+                rospy.loginfo('err')
 
     def update_status(self):
 
@@ -188,7 +228,7 @@ class path_to_direction():
 
                 # rospy.loginfo("df : {}".format(df) )
                 angle = angle*(1-self.ratio)+df*self.ratio
-
+            rospy.loginfo('status : {}, angle : {}'.format(self.ts_state,self.angle))
             self.angle = angle[2]
             self.lookup_plan_pub.publish(lookup_plan_msg)
 
@@ -221,7 +261,7 @@ class path_to_direction():
 
             px.pose.pose =  poses[i].pose
             # rospy.loginfo(px)
-            self.demo_pub.publish(px)
+            # self.demo_pub.publish(px)
 
         # if order == 0:
         #     rospy.loginfo(debug)
@@ -231,7 +271,7 @@ class path_to_direction():
 
         px.pose.pose =  poses[order].pose
         # rospy.loginfo(px)
-        self.demo_pub.publish(px)
+        # self.demo_pub.publish(px)
 
         # rospy.loginfo('order : %d'%(order))
         return order
