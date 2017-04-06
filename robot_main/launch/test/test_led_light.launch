@@ -1,6 +1,6 @@
 <launch>
-  <arg name="color" default="red"/>
-  <arg name="ismove" default="False" />
+  <arg name="color" default="yellow"/>
+  <arg name="ismove" default="True" />
 
   <include file='$(find robot_main)/launch/includes/joystick.launch'>
     <arg name="pub_topic" value="/cmd_vel"/>

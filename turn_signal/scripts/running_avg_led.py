@@ -5,7 +5,7 @@ import serial
 from std_msgs.msg import String
 from geometry_msgs.msg import Twist
 import thread
-from include import turn_signal_E as turn_signal
+from include import turn_signal as turn_signal
 
 class light():
     def callback(self,msg):
