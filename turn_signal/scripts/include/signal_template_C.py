@@ -27,6 +27,6 @@ d1 = [0,13,0,1]
 d2 = [0,4,0,1]
 d3 = [0,1,0,1]
 
-# top0 = np.array([z*5+d3*2+d2*4+d1*4+d0*10+d1*4+d2*4+d3*2+z*5])
-top0 = np.array([z*40])
+top0 = np.array([z*5+d3*2+d2*4+d1*4+d0*10+d1*4+d2*4+d3*2+z*5])
+# top0 = np.array([z*40])
 top0 = top0.reshape(40,4)

@@ -7,7 +7,7 @@
     <param name='listen_topic' value='/move_base/TrajectoryPlannerROS/global_plan'/>
     <param name='dev' value='/dev/arduino-nuke'/>
     <param name='light_rate' value='10' />
-    <param name='type' value='c'/>
+    <param name='type' value='d'/>
     <param name='ismove' value='False' />
   </node>
 </launch>

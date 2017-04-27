@@ -1,0 +1,9 @@
+<launch>
+
+  <include file="$(find openni_launch)/launch/openni.launch">
+  </include>
+
+  <node name="zbar_barcode_reader" type="barcode_reader_node" pkg="zbar_barcode_reader" output="screen" respawn="true" >
+    <remap from="image" to="/camera/rgb/image_rect_color"/>
+  </node>
+</launch>

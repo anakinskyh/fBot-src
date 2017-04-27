@@ -1,0 +1,13 @@
+<launch>
+  <arg name="image_topic" default="/camera/rgb/image_rect_mono"/>
+  <arg name="out_name" default="out.avi"/>
+  <node pkg="image_view" type="image_view" name="view_usb" output="screen">
+    <remap from="image" to="$(arg image_topic)"/>
+  </node>
+
+  <node pkg="image_view" type="video_recorder" name="recorder" output="screen" cwd="ROS_HOME" respawn="false">
+    <remap from="image" to="$(arg image_topic)"/>
+    <param name="filename" value="$(arg out_name)" />
+    <param name="fps" value="10"/>
+  </node>
+</launch>

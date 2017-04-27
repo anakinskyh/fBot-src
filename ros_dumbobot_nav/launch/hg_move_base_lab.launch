@@ -7,7 +7,7 @@
   <arg name='map_path' default='/home/anakin/map/full20center.yaml'/>
 
   <!--map-->
-  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_path)"/>
+  <!-- <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_path)"/> -->
 
   <!-- Run AMCL -->
   <!--<include file="$(find ros_dumbobot_nav)/launch/hg_amcl_dumbo.launch" />-->
