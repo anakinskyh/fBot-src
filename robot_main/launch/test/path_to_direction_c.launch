@@ -1,0 +1,13 @@
+<launch>
+
+  <node pkg="turn_signal" type="path_to_direction.py" name="people_to_direction" output="screen">
+    <param name='update_frequency' value='10'/>
+    <param name='lookup' value='80'/>
+    <param name='turn_threshold' value='0.2'/>
+    <param name='listen_topic' value='/move_base/TrajectoryPlannerROS/global_plan'/>
+    <param name='dev' value='/dev/arduino-nuke'/>
+    <param name='light_rate' value='10' />
+    <param name='type' value='c'/>
+    <param name='ismove' value='False' />
+  </node>
+</launch>
